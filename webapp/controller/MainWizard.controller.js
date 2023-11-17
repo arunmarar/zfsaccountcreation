@@ -1,6 +1,6 @@
 sap.ui.define([
 	'sap/ui/core/mvc/Controller',
-	// "./BaseController",
+
     "sap/ui/model/json/JSONModel",
    // "../model/formatter",
     "sap/ui/model/Filter",
@@ -59,10 +59,15 @@ sap.ui.define([
 				SelectedLevel3: '',
 				SelectedLevel4: '',
 				SelectedLevel5: '',
+				Level1Note: '',
+				Level2Note: '',
+				Level3Note: '',
+				Level4Note: '',
+				Level5Note: '',
 								})
 			this.getView().setModel(this.StepModel, 'StepModel'); 
 		//oEventBus.subscribe("MainWizard", "MainWizardReadSuccess", this.onReadSuccess, this);
-
+//this.StepModel.getProperty('/Level1items').find(item => item.Level01 ==="0").Descrption
 		
 			// this._wizard = this.byId("ShoppingCartWizard");
 			// this._oNavContainer = this.byId("wizardNavContainer");
@@ -318,7 +323,7 @@ sap.ui.define([
 				   
 				}
 			});
-
+	
 		},
 
 
@@ -370,6 +375,10 @@ sap.ui.define([
 				}
 			});
 
+	var note = this.StepModel.getProperty('/Level1items').find(
+		item => item.Level01 === this.StepModel.getProperty('/SelectedLevel1')
+		).Note;
+	this.StepModel.setProperty('/Level1Note', note);
 		},
 	
 	
@@ -417,7 +426,10 @@ sap.ui.define([
 				   
 				}
 			});
-
+			var note = this.StepModel.getProperty('/Level2items').find(
+				item => item.Level02 === this.StepModel.getProperty('/SelectedLevel2')
+				).Note;
+			this.StepModel.setProperty('/Level2Note', note);
 		},
 		
 
@@ -464,7 +476,10 @@ sap.ui.define([
 				   
 				}
 			});
-
+			var note = this.StepModel.getProperty('/Level3items').find(
+				item => item.Level03 === this.StepModel.getProperty('/SelectedLevel3')
+				).Note;
+			this.StepModel.setProperty('/Level3Note', note);
 		},
 
 
@@ -472,7 +487,6 @@ sap.ui.define([
 			
 			
 			this.StepModel.setProperty('/Level5items', {});
-			
 			
 			this.StepModel.setProperty('/Level5Visibility', true);
 			
@@ -510,7 +524,10 @@ sap.ui.define([
 				   
 				}
 			});
-
+			var note = this.StepModel.getProperty('/Level4items').find(
+				item => item.Level04 === this.StepModel.getProperty('/SelectedLevel4')
+				).Note;
+			this.StepModel.setProperty('/Level4Note', note);
 		},
 
 		goToPaymentStep: function () {

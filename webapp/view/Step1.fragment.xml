@@ -9,18 +9,18 @@
     controllerName="zfsaccountcreation.controller.MainWizard"
 >
     <form:SimpleForm
+        id="form1"
         editable="true"
         layout="ResponsiveGridLayout"
     >
+        
         <Label
-            text="Name"
-            required="true"
-        />
-        <Label
+            id='label2'
             text="Step 1"
             required="true"
         />
         <Select
+            id='select1'
             forceSelection="false"
             change="onChangeStep1"
             selectedKey="{StepModel>/SelectedStep1}"
@@ -30,17 +30,20 @@
         }"
         >
             <core:Item
+                id='select2'
                 key="{Step1}"
                 text="{Step1}"
             />
         </Select>
 
         <Label
+            id='label3'
             text="Step 2"
             required="true"
         />
 
         <Select
+            id='select3'
             visible="{StepModel>/Step2Visibility}"
             change="onChangeStep2"
             forceSelection="false"
@@ -51,52 +54,58 @@
         }"
         >
             <core:Item
+                id='item2'
                 key="{StepModel>Step2}"
                 text="{StepModel>Step2}"
             />
         </Select>
 
         <Label
-        text="Step 3"
-        required="true"
-    />
+            id='label4'
+            text="Step 3"
+            required="true"
+        />
 
-    <Select
-        visible="{StepModel>/Step3Visibility}"
-        change="onChangeStep3"
-        forceSelection="false"
-        selectedKey="{StepModel>/SelectedStep3}"
-        items="{
+        <Select
+            id='select5'
+            visible="{StepModel>/Step3Visibility}"
+            change="onChangeStep3"
+            forceSelection="false"
+            selectedKey="{StepModel>/SelectedStep3}"
+            items="{
         path: 'StepModel>/Step3items',
         sorter: { path: 'Step3' }
     }"
-    >
-        <core:Item
-            key="{StepModel>Step3}"
-            text="{StepModel>Step3}"
+        >
+            <core:Item
+                id='item3'
+                key="{StepModel>Step3}"
+                text="{StepModel>Step3}"
+            />
+        </Select>
+
+        <Label
+            id='label5'
+            text="Step 4"
+            required="true"
         />
-    </Select>
 
-    <Label
-    text="Step 4"
-    required="true"
-/>
-
-<Select
-    visible="{StepModel>/Step4Visibility}"
-    forceSelection="false"
-    change="onChangeStep4"
-    selectedKey="{StepModel>/SelectedStep4}"
-    items="{
+        <Select
+            id='select6'
+            visible="{StepModel>/Step4Visibility}"
+            forceSelection="false"
+            change="onChangeStep4"
+            selectedKey="{StepModel>/SelectedStep4}"
+            items="{
     path: 'StepModel>/Step4items',
     sorter: { path: 'Step4' }
 }"
->
-    <core:Item
-        key="{StepModel>Step4}"
-        text="{StepModel>Step4}"
-    />
-</Select>
-
-           </form:SimpleForm>
+        >
+            <core:Item
+                id='item6'
+                key="{StepModel>Step4}"
+                text="{StepModel>Step4}"
+            />
+        </Select>
+    </form:SimpleForm>
 </core:FragmentDefinition>
