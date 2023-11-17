@@ -45,7 +45,7 @@
 
                         <WizardStep
                         id="Level1WStep"
-                        title="Level 1"
+                        title="Step 2"
                         nextStep="Level2WStep"
 
                     >
@@ -66,7 +66,7 @@
 
                     <WizardStep
                         id="Level2WStep"
-                        title="Level 2"
+                        title="Step 3"
                         nextStep="Level3WStep"
                     >
                         <ObjectHeader>
@@ -86,7 +86,7 @@
 
                     <WizardStep
                     id="Level3WStep"
-                    title="Level 3"
+                    title="Step 4"
                     nextStep="Level4WStep"
                 >
                     <ObjectHeader>
@@ -106,7 +106,7 @@
 
                 <WizardStep
                 id="Level4WStep"
-                title="Level 4"
+                title="Step 5"
                 nextStep="Level5WStep" 
             >
                 <ObjectHeader>
@@ -126,8 +126,8 @@
 
             <WizardStep
             id="Level5WStep"
-            title="Level 5"
-            
+            title="Step 6"
+            nextStep="Level6WStep"
         >
             <ObjectHeader>
                 <attributes>
@@ -143,6 +143,26 @@
                 type="XML"
             />
         </WizardStep>
+
+        <WizardStep
+        id="Level6WStep"
+        title="Step 7"
+        
+    >
+        <ObjectHeader>
+            <attributes>
+                <ObjectAttribute
+                text="{StepModel>/Level4Note}"
+                />
+            </attributes>
+        </ObjectHeader>
+        <!-- items="{/Step1Set}" -->
+
+        <core:Fragment
+            fragmentName="zfsaccountcreation.view.Step7"
+            type="XML"
+        />
+    </WizardStep>
 
                     </Wizard>
                 </content>

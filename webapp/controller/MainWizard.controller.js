@@ -59,6 +59,7 @@ sap.ui.define([
 				SelectedLevel3: '',
 				SelectedLevel4: '',
 				SelectedLevel5: '',
+				SelectedLevel6: '',
 				Level1Note: '',
 				Level2Note: '',
 				Level3Note: '',
@@ -528,6 +529,39 @@ sap.ui.define([
 				item => item.Level04 === this.StepModel.getProperty('/SelectedLevel4')
 				).Note;
 			this.StepModel.setProperty('/Level4Note', note);
+		},
+
+		
+		onChangeLevel5: function (oEvent) {
+			
+			var sfilter1 = new Filter({
+				path: "Level06",
+				operator: 'EQ',
+				value1: this.StepModel.getProperty('/SelectedLevel5')
+
+			})
+			
+			var sPath = '/Level6Set' ; 
+			this.getView().getModel().read(sPath, {
+				filters:[sfilter1],
+				success: oData => {
+					
+					this.StepModel.setProperty('/SelectedLevel6', oData.results[0].Level06);
+					if ( oData.results.length === 0)
+					{
+						this.StepModel.setProperty('/Level6Visibility', false);
+						// this.onChangeStep2();
+				    }
+					else{
+						this.StepModel.setProperty('/Level6Visibility', true);
+					}										
+				},
+				error: e => {  
+					this.showErrorMessage(this.parseError(e));
+				   
+				}
+			});
+			
 		},
 
 		goToPaymentStep: function () {

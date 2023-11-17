@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    controllerName="zfsaccountcreation.controller.MainWizard"
+>
+    <form:SimpleForm
+        editable="true"
+        layout="ResponsiveGridLayout"
+    >
+        <Label
+            text="Level 6"
+            required="true"
+        />
+        <Input 
+        editable="false"
+        value="{StepModel>/SelectedLevel6}"
+        ></Input>
+        
+    </form:SimpleForm>
+</core:FragmentDefinition>
