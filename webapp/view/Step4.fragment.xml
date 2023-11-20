@@ -12,6 +12,28 @@
         editable="true"
         layout="ResponsiveGridLayout"
     >
+    <core:Fragment
+    fragmentName="zfsaccountcreation.view.Step"
+    type="XML"
+/>
+<Label
+            text="Level 1"
+            required="true"
+        />
+        <Input
+            editable="false"
+            value="{StepModel>/SelectedLevel1V}"
+            
+        />
+        <Label
+            text="Level 2"
+            required="true"
+        />
+        <Input
+            editable="false"
+            value="{StepModel>/SelectedLevel2V}"
+            
+        />
         <Label
             text="Level 3"
             required="true"

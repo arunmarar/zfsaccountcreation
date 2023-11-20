@@ -55,10 +55,15 @@ sap.ui.define([
 				Level4Visibility: true,
 				Level5Visibility: true,
 				SelectedLevel1: '',
+				SelectedLevel1V: '',
 				SelectedLevel2: '',
+				SelectedLevel2V: '',
 				SelectedLevel3: '',
+				SelectedLevel3V: '',
 				SelectedLevel4: '',
+				SelectedLevel4V: '',
 				SelectedLevel5: '',
+				SelectedLevel5V: '',
 				SelectedLevel6: '',
 				Level1Note: '',
 				Level2Note: '',
@@ -341,8 +346,8 @@ sap.ui.define([
 			this.StepModel.setProperty('/SelectedLevel3', '');
 			this.StepModel.setProperty('/SelectedLevel4', '');
 			this.StepModel.setProperty('/SelectedLevel5', '');
-			//var selectedKey = this.StepModel.getProperty('/SelectedStep4');
-			//var selectedKey = oEvent.getSource().getSelectedKey();
+			
+			
 			var sfilter1 = new Filter({
 				path: "Level01",
 				operator: 'EQ',
@@ -376,10 +381,11 @@ sap.ui.define([
 				}
 			});
 
-	var note = this.StepModel.getProperty('/Level1items').find(
+	var result= this.StepModel.getProperty('/Level1items').find(
 		item => item.Level01 === this.StepModel.getProperty('/SelectedLevel1')
-		).Note;
-	this.StepModel.setProperty('/Level1Note', note);
+		);
+	this.StepModel.setProperty('/Level1Note', result.Note);
+	this.StepModel.setProperty('/SelectedLevel1V', result.Descrption)
 		},
 	
 	
@@ -395,6 +401,8 @@ sap.ui.define([
 			this.StepModel.setProperty('/SelectedLevel3', '');
 			this.StepModel.setProperty('/SelectedLevel4', '');
 			this.StepModel.setProperty('/SelectedLevel5', '');
+
+			
 			var sfilter1 = new Filter({
 				path: "Level02",
 				operator: 'EQ',
@@ -427,10 +435,12 @@ sap.ui.define([
 				   
 				}
 			});
-			var note = this.StepModel.getProperty('/Level2items').find(
+			var result = this.StepModel.getProperty('/Level2items').find(
 				item => item.Level02 === this.StepModel.getProperty('/SelectedLevel2')
-				).Note;
-			this.StepModel.setProperty('/Level2Note', note);
+				);
+			
+			this.StepModel.setProperty('/Level2Note', result.Note);
+	this.StepModel.setProperty('/SelectedLevel2V', result.Descrption)
 		},
 		
 
@@ -445,6 +455,7 @@ sap.ui.define([
 			
 			this.StepModel.setProperty('/SelectedLevel4', '');
 			this.StepModel.setProperty('/SelectedLevel5', '');
+			
 			var sfilter1 = new Filter({
 				path: "Level03",
 				operator: 'EQ',
@@ -477,10 +488,11 @@ sap.ui.define([
 				   
 				}
 			});
-			var note = this.StepModel.getProperty('/Level3items').find(
+			var result = this.StepModel.getProperty('/Level3items').find(
 				item => item.Level03 === this.StepModel.getProperty('/SelectedLevel3')
-				).Note;
-			this.StepModel.setProperty('/Level3Note', note);
+				);
+				this.StepModel.setProperty('/Level3Note', result.Note);
+				this.StepModel.setProperty('/SelectedLevel3V', result.Descrption)
 		},
 
 
@@ -493,6 +505,8 @@ sap.ui.define([
 			
 			
 			this.StepModel.setProperty('/SelectedLevel5', '');
+
+			
 			var sfilter1 = new Filter({
 				path: "Level04",
 				operator: 'EQ',
@@ -525,15 +539,20 @@ sap.ui.define([
 				   
 				}
 			});
-			var note = this.StepModel.getProperty('/Level4items').find(
+			var result = this.StepModel.getProperty('/Level4items').find(
 				item => item.Level04 === this.StepModel.getProperty('/SelectedLevel4')
-				).Note;
-			this.StepModel.setProperty('/Level4Note', note);
+				);
+				this.StepModel.setProperty('/Level4Note', result.Note);
+				this.StepModel.setProperty('/SelectedLevel4V', result.Descrption)
 		},
 
 		
 		onChangeLevel5: function (oEvent) {
 			
+			var result = this.StepModel.getProperty('/Level5items').find(
+				item => item.Level05 === this.StepModel.getProperty('/SelectedLevel5'));
+				this.StepModel.setProperty('/SelectedLev5l1V', result.Descrption
+				);
 			var sfilter1 = new Filter({
 				path: "Level06",
 				operator: 'EQ',
@@ -561,6 +580,12 @@ sap.ui.define([
 				   
 				}
 			});
+
+			var result = this.StepModel.getProperty('/Level5items').find(
+				item => item.Level05 === this.StepModel.getProperty('/SelectedLevel5')
+				);
+				this.StepModel.setProperty('/Level5Note', result.Note);
+				this.StepModel.setProperty('/SelectedLevel5V', result.DESCRPTION)
 			
 		},
 
