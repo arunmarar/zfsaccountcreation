@@ -13,7 +13,6 @@
         editable="true"
         layout="ResponsiveGridLayout"
     >
-        
         <Label
             id='label2'
             text="Step 1"

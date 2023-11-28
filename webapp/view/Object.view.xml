@@ -1,0 +1,36 @@
+<mvc:View
+	controllerName="mycompany.myapp.MyWorklistApp.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+		busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}">
+
+		<semantic:titleHeading>
+			<Title text="{Step1}" />
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+			<Text text="{Step2}"></Text>
+			<Text text="{Step3}"></Text>
+			<Text text="{Step4}"></Text>
+			<Text text="{Level01}"></Text>
+			<Text text="{Level02}"></Text>
+			<Text text="{Level03}"></Text>
+			<Text text="{Level04}"></Text>
+			<Text text="{Level05}"></Text>
+			<Text text="{Level06}"></Text>
+		</semantic:headerContent>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+	</semantic:SemanticPage>
+
+</mvc:View>

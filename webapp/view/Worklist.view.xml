@@ -1,0 +1,101 @@
+<mvc:View
+	controllerName="zfsaccountcreation.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}" />
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+			<OverflowToolbar>
+				<!-- Existing buttons or controls ... -->
+				<ToolbarSpacer />
+				<Button
+					text="New Request"
+					press="handleNewButtonPress"
+				/>
+				<Button
+					text="Cancel"
+					press="handleWizardCancel"
+				/>
+			</OverflowToolbar>
+			<IconTabBar
+				id="iconTabBar"
+				select=".onQuickFilter"
+				expandable="false">
+				
+				<content>
+					<Table
+						id="table"
+						busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+						growing="true"
+						growingScrollToLoad="true"
+						noDataText="{worklistView>/tableNoDataText}"
+						updateFinished=".onUpdateFinished"
+						width="auto"
+						items="{
+							path: '/ApprovalListSet'
+							
+						}">
+					<headerToolbar>
+						<Toolbar>
+							<Title
+								id="tableHeader"
+								text="List To be approved"/>
+							<ToolbarSpacer/>
+							<SearchField
+								id="searchField"
+								tooltip="{i18n>worklistSearchTooltip}"
+								search=".onSearch"
+								width="auto">
+							</SearchField>
+						</Toolbar>
+					</headerToolbar>
+
+						<columns>
+							<Column id="nameColumn">
+								<Text
+									id="nameColumnTitle"
+									text="Level 06"/>
+							</Column>
+							<Column>
+								<Text text="Level 1"/>
+							</Column>
+							<Column>
+								<Text text="Requested Time"/>
+							</Column>
+							<Column>
+								<Text text="Actions"/>
+							</Column>
+						</columns>
+					<items>
+						<ColumnListItem type="Navigation" press=".onPress">
+							<cells>
+								<ObjectIdentifier title="{Level06}"/>
+								<Text text="{Level01}"/>
+								<Text text="{Time}"/>
+								<HBox>
+									<Button text="Approve" press=".onApprovePress"/>
+									<Button text="Reject" press=".onRejectPress"/>
+									<Button text="Forward" press=".onForwardPress"/>
+								</HBox>
+								
+							</cells>
+						</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:headerContent>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+	</semantic:SemanticPage>
+</mvc:View>

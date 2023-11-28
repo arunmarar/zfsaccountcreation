@@ -36,7 +36,7 @@
                                     />
                                 </attributes>
                             </ObjectHeader>
-                           
+
                             <core:Fragment
                                 fragmentName="zfsaccountcreation.view.Step1"
                                 type="XML"
@@ -44,126 +44,123 @@
                         </WizardStep>
 
                         <WizardStep
-                        id="Level1WStep"
-                        title="Step 2"
-                        nextStep="Level2WStep"
+                            id="Level1WStep"
+                            title="Step 2"
+                            nextStep="Level2WStep"
+                        >
+                            <ObjectHeader>
+                                <attributes>
+                                    <ObjectAttribute
+                                        text="Please Select Value from Below Dropdown"
+                                    />
+                                </attributes>
+                            </ObjectHeader>
+                            <!-- items="{/Step1Set}" -->
 
-                    >
-                        <ObjectHeader>
-                            <attributes>
-                                <ObjectAttribute
-                                    text="Please Select Value from Below Dropdown"
-                                />
-                            </attributes>
-                        </ObjectHeader>
-                        <!-- items="{/Step1Set}" -->
-
-                        <core:Fragment
-                            fragmentName="zfsaccountcreation.view.Step2"
-                            type="XML"
-                        />
-                    </WizardStep>
-
-                    <WizardStep
-                        id="Level2WStep"
-                        title="Step 3"
-                        nextStep="Level3WStep"
-                    >
-                        <ObjectHeader>
-                            <attributes>
-                                <ObjectAttribute
-                                    text="{StepModel>/Level1Note}"
-                                />
-                            </attributes>
-                        </ObjectHeader>
-                        <!-- items="{/Step1Set}" -->
-
-                        <core:Fragment
-                            fragmentName="zfsaccountcreation.view.Step3"
-                            type="XML"
-                        />
-                    </WizardStep>
-
-                    <WizardStep
-                    id="Level3WStep"
-                    title="Step 4"
-                    nextStep="Level4WStep"
-                >
-                    <ObjectHeader>
-                        <attributes>
-                            <ObjectAttribute
-                            text="{StepModel>/Level2Note}"
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step2"
+                                type="XML"
                             />
-                        </attributes>
-                    </ObjectHeader>
-                    <!-- items="{/Step1Set}" -->
+                        </WizardStep>
 
-                    <core:Fragment
-                        fragmentName="zfsaccountcreation.view.Step4"
-                        type="XML"
-                    />
-                </WizardStep>
+                        <WizardStep
+                            id="Level2WStep"
+                            title="Step 3"
+                            nextStep="Level3WStep"
+                        >
+                            <ObjectHeader>
+                                <attributes>
+                                    <ObjectAttribute
+                                        text="{StepModel>/Level1Note}"
+                                    />
+                                </attributes>
+                            </ObjectHeader>
+                            <!-- items="{/Step1Set}" -->
 
-                <WizardStep
-                id="Level4WStep"
-                title="Step 5"
-                nextStep="Level5WStep" 
-            >
-                <ObjectHeader>
-                    <attributes>
-                        <ObjectAttribute
-                        text="{StepModel>/Level3Note}"
-                        />
-                    </attributes>
-                </ObjectHeader>
-                <!-- items="{/Step1Set}" -->
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step3"
+                                type="XML"
+                            />
+                        </WizardStep>
 
-                <core:Fragment
-                    fragmentName="zfsaccountcreation.view.Step5"
-                    type="XML"
-                />
-            </WizardStep>
+                        <WizardStep
+                            id="Level3WStep"
+                            title="Step 4"
+                            nextStep="Level4WStep"
+                        >
+                            <ObjectHeader>
+                                <attributes>
+                                    <ObjectAttribute
+                                        text="{StepModel>/Level2Note}"
+                                    />
+                                </attributes>
+                            </ObjectHeader>
+                            <!-- items="{/Step1Set}" -->
 
-            <WizardStep
-            id="Level5WStep"
-            title="Step 6"
-            nextStep="Level6WStep"
-        >
-            <ObjectHeader>
-                <attributes>
-                    <ObjectAttribute
-                    text="{StepModel>/Level4Note}"
-                    />
-                </attributes>
-            </ObjectHeader>
-            <!-- items="{/Step1Set}" -->
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step4"
+                                type="XML"
+                            />
+                        </WizardStep>
 
-            <core:Fragment
-                fragmentName="zfsaccountcreation.view.Step6"
-                type="XML"
-            />
-        </WizardStep>
+                        <WizardStep
+                            id="Level4WStep"
+                            title="Step 5"
+                            nextStep="Level5WStep"
+                        >
+                            <ObjectHeader>
+                                <attributes>
+                                    <ObjectAttribute
+                                        text="{StepModel>/Level3Note}"
+                                    />
+                                </attributes>
+                            </ObjectHeader>
+                            <!-- items="{/Step1Set}" -->
 
-        <WizardStep
-        id="Level6WStep"
-        title="Step 7"
-        
-    >
-        <ObjectHeader>
-            <attributes>
-                <ObjectAttribute
-                text="{StepModel>/Level4Note}"
-                />
-            </attributes>
-        </ObjectHeader>
-        <!-- items="{/Step1Set}" -->
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step5"
+                                type="XML"
+                            />
+                        </WizardStep>
 
-        <core:Fragment
-            fragmentName="zfsaccountcreation.view.Step7"
-            type="XML"
-        />
-    </WizardStep>
+                        <WizardStep
+                            id="Level5WStep"
+                            title="Step 6"
+                            nextStep="Level6WStep"
+                        >
+                            <ObjectHeader>
+                                <attributes>
+                                    <ObjectAttribute
+                                        text="{StepModel>/Level4Note}"
+                                    />
+                                </attributes>
+                            </ObjectHeader>
+                            <!-- items="{/Step1Set}" -->
 
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step6"
+                                type="XML"
+                            />
+                        </WizardStep>
+
+                        <WizardStep
+                            id="Level6WStep"
+                            title="Step 7"
+                        >
+                            <ObjectHeader>
+                                <attributes>
+                                    <ObjectAttribute
+                                        text="{StepModel>/Level4Note}"
+                                    />
+                                </attributes>
+                            </ObjectHeader>
+                            <!-- items="{/Step1Set}" -->
+
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step7"
+                                type="XML"
+                            />
+                        </WizardStep>
                     </Wizard>
                 </content>
                 <footer>
