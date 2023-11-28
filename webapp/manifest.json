@@ -125,9 +125,9 @@
           
         },
         {
-					"pattern": "Products/{objectId}",
+					"pattern": "TargetMainWizard({objectId})",
 					"name": "object",
-					"target": ["object"]
+					"target": ["TargetMainWizard"]
 				}
       ],
       "targets": {

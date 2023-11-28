@@ -72,7 +72,7 @@
 								<Text text="Requested Time"/>
 							</Column>
 							<Column>
-								<Text text="Actions"/>
+								<Text text="Requested By"/>
 							</Column>
 						</columns>
 					<items>
@@ -81,12 +81,7 @@
 								<ObjectIdentifier title="{Level06}"/>
 								<Text text="{Level01}"/>
 								<Text text="{Time}"/>
-								<HBox>
-									<Button text="Approve" press=".onApprovePress"/>
-									<Button text="Reject" press=".onRejectPress"/>
-									<Button text="Forward" press=".onForwardPress"/>
-								</HBox>
-								
+																
 							</cells>
 						</ColumnListItem>
 						</items>

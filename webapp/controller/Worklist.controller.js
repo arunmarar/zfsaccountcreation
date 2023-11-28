@@ -7,7 +7,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
-	return BaseController.extend("mycompany.myapp.MyWorklistApp.controller.Worklist", {
+	return BaseController.extend("zfsaccountcreation.controller.Worklist", {
 
 		//formatter: formatter,
 
@@ -79,10 +79,10 @@ sap.ui.define([
 		handleNewButtonPress: function () {
 		 // Get the router instance
 		 this.getRouter().navTo("RouteMainWizard");
-		 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+		 //var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
 		 // Navigate to the "MainWizard" route
-		 oRouter.navTo("RouteMainWizard");
+		 //oRouter.navTo("RouteMainWizard");
 
 		},
 		
@@ -147,7 +147,7 @@ sap.ui.define([
 		 */
 		_showObject : function (oItem) {
 			this.getRouter().navTo("object", {
-				objectId: oItem.getBindingContext().getProperty("ProductID")
+				objectId: oItem.getBindingContext().getProperty("Level06")
 			});
 		},
 

@@ -1,6 +1,6 @@
 sap.ui.define([
-	'sap/ui/core/mvc/Controller',
-
+	// 'sap/ui/core/mvc/Controller',
+	"./BaseController",
     "sap/ui/model/json/JSONModel",
    // "../model/formatter",
     "sap/ui/model/Filter",
@@ -17,7 +17,7 @@ sap.ui.define([
     "sap/m/library",
     "sap/m/Label",
     "sap/ui/core/Core"
-], function (Controller, JSONModel, Filter, FilterOperator,MessageToast, MessageBox, Fragment, 
+], function (BaseController, JSONModel, Filter, FilterOperator,MessageToast, MessageBox, Fragment, 
     CoreLibrary,
     Servicemodel,Text,TextArea,Dialog,Button,mobileLibrary,Label,Core) {
 	"use strict";
@@ -27,7 +27,7 @@ sap.ui.define([
 		prevDiffDeliverySelect: null
 	};
 
-	return Controller.extend("zfsaccountcreation.controller.MainWizard", {
+	return BaseController.extend("zfsaccountcreation.controller.MainWizard", {
 		onInit: function () {
 			this.serviceModel = new Servicemodel(this);
             const ComboModel = this.serviceModel.getComboModel();
@@ -49,6 +49,7 @@ sap.ui.define([
 				Level3items:{},
 				Level4items:{},
 				Level5items:{},
+				Level6items:{},
 				Level1Visibility: true,
 				Level2Visibility: true,
 				Level3Visibility: true,
@@ -72,28 +73,48 @@ sap.ui.define([
 				Level5Note: '',
 								})
 			this.getView().setModel(this.StepModel, 'StepModel'); 
-		//oEventBus.subscribe("MainWizard", "MainWizardReadSuccess", this.onReadSuccess, this);
-//this.StepModel.getProperty('/Level1items').find(item => item.Level01 ==="0").Descrption
-		
-			// this._wizard = this.byId("ShoppingCartWizard");
-			// this._oNavContainer = this.byId("wizardNavContainer");
-			// this._oWizardContentPage = this.byId("wizardContentPage");
-
-			// this.model = new JSONModel();
-			// this.model.attachRequestCompleted(null, function () {
-				// this.model.getData().ProductCollection.splice(5, this.model.getData().ProductCollection.length);
-				// this.model.setProperty("/selectedPayment", "Credit Card");
-				// this.model.setProperty("/selectedDeliveryMethod", "Standard Delivery");
-				// this.model.setProperty("/differentDeliveryAddress", false);
-				// this.model.setProperty("/CashOnDelivery", {});
-				// this.model.setProperty("/BillingAddress", {});
-				// this.model.setProperty("/CreditCard", {});
-				// this.calcTotal();
-				// this.model.updateBindings();
+	
+			 this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
+		},
+		onNavBack : function() {
+			
+				this.getRouter().navTo("RouteMainWorklist");
+			
+		},
+		_onObjectMatched : function (oEvent) {
+			var sObjectId =  oEvent.getParameter("arguments").objectId;
+			// this.getModel().metadataLoaded().then( function() {
+			// 	var sObjectPath = this.getModel().createKey("Products", {
+			// 		ProductID :  sObjectId
+			// 	});
+			// 	this._bindView("/" + sObjectPath);
 			// }.bind(this));
+			var sfilter1 = new Filter({
+				path: "Step1",
+				operator: 'EQ',
+				value1: sObjectId 
 
-			// this.model.loadData(sap.ui.require.toUrl("sap/ui/demo/mock/products.json"));
-			// this.getView().setModel(this.model);
+			})
+			var sPath = '/Step2Set' ; 
+			this.getView().getModel().read(sPath, {
+				filters:[sfilter1],
+				success: oData => {
+					
+					this.StepModel.setProperty('/Step2items', oData.results);
+					if ( oData.results.length === 0)
+					{
+						this.StepModel.setProperty('/Step2Visibility', false);
+						this.onChangeStep2();
+				    }
+					else{
+						this.StepModel.setProperty('/Step2Visibility', true);
+					}										
+				},
+				error: e => {  
+					this.showErrorMessage(this.parseError(e));
+				   
+				}
+			});
 		},
 		onChangeStep1: function (oEvent) {
 			this.StepModel.setProperty('/Step2items', {});
@@ -564,8 +585,8 @@ sap.ui.define([
 			this.getView().getModel().read(sPath, {
 				filters:[sfilter1],
 				success: oData => {
-					
 					this.StepModel.setProperty('/SelectedLevel6', oData.results[0].Level06);
+					this.StepModel.setProperty('/Level6items', oData.results);
 					if ( oData.results.length === 0)
 					{
 						this.StepModel.setProperty('/Level6Visibility', false);
@@ -651,7 +672,9 @@ sap.ui.define([
 		},
 
 		handleWizardCancel: function () {
-			this._handleMessageBoxOpen("Are you sure you want to cancel your purchase?", "warning");
+			// this._handleMessageBoxOpen("Are you sure you want to cancel ?", "warning");
+			//history.go(-1);
+			 this.onNavBack();
 		},
 
 		handleWizardSubmit: function () {

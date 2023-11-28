@@ -16,14 +16,6 @@
             fragmentName="zfsaccountcreation.view.StepB"
             type="XML"
         />
-        <!-- <Label
-            text="Level 1"
-            required="true"
-        />
-        <Input
-            editable="false"
-            value="{StepModel>/SelectedLevel1V}"
-        /> -->
 
         <Label
             text="Level 2"

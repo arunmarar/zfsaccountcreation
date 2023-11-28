@@ -8,10 +8,6 @@
     xmlns:u="sap.ui.unified"
     controllerName="zfsaccountcreation.controller.MainWizard"
 >
-    <!-- <form:SimpleForm
-        editable="true"
-        layout="ResponsiveGridLayout"
-    > -->
     <Label
         text="Step 1"
         required="true"
@@ -50,6 +46,4 @@
         value="{StepModel>/SelectedStep4}"
         visible="{StepModel>/Step4Visibility}"
     />
-
-    <!-- </form:SimpleForm> -->
 </core:FragmentDefinition>
