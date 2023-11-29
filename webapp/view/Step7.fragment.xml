@@ -35,7 +35,7 @@
                         required="true"
                     />
                     <Input
-                        editable="false"
+                        editable="{StepModel>/ApprovalVisible}"
                         value="{StepModel>/SelectedLevel6}"
                     />
                 </f:expandedContent>
@@ -45,7 +45,7 @@
                         required="true"
                     />
                     <Input
-                        editable="false"
+                        editable="{StepModel>/ApprovalVisible}"
                         value="{StepModel>/SelectedLevel6}"
                     />
                 </f:snappedContent>

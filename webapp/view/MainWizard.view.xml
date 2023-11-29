@@ -20,14 +20,16 @@
                         complete="completedHandler"
                         enableBranching="true"
                         class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
-                        finishButtonText="Submit"
+                        finishButtonText=""
                         showNextButton="true"
                         backgroundDesign="Transparent"
+
                     >
                         <WizardStep
                             id="WStep"
                             nextStep="Level1WStep"
                             title="Step 1"
+                            
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -169,6 +171,26 @@
                         <Button
                             text="Cancel"
                             press="handleWizardCancel"
+                        />
+                        <Button
+                            text="Submit"
+                            press="completedHandler"
+                            visible="{StepModel>/SubmitVisible}"
+                        />
+                        <Button
+                            text="Approve"
+                            press="ApproveHandler"
+                            visible="{StepModel>/ApprovalVisible}"
+                        />
+                        <Button
+                            text="Reject"
+                            press="RejectHandler"
+                            visible="{StepModel>/ApprovalVisible}"
+                        />
+                        <Button
+                            text="Forward"
+                            press="ForwardHandler"
+                            visible="{StepModel>/ApprovalVisible}"
                         />
                     </OverflowToolbar>
                 </footer>

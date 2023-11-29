@@ -78,7 +78,9 @@ sap.ui.define([
 		 */
 		handleNewButtonPress: function () {
 		 // Get the router instance
-		 this.getRouter().navTo("RouteMainWizard");
+		 this.getRouter().navTo("RouteMainWizard",{
+			SAction: "New"
+		 });
 		 //var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
 		 // Navigate to the "MainWizard" route
@@ -130,7 +132,7 @@ sap.ui.define([
 				var sQuery = oEvent.getParameter("query");
 
 				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new Filter("ProductName", FilterOperator.Contains, sQuery)];
+					aTableSearchState = [new Filter("Step4", FilterOperator.Contains, sQuery)];
 				}
 				this._applySearch(aTableSearchState);
 			}
