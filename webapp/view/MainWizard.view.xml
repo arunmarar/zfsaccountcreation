@@ -16,7 +16,7 @@
             >
                 <content>
                     <Wizard
-                        id="ShoppingCartWizard"
+                        id="ApprovalWizard"
                         complete="completedHandler"
                         enableBranching="true"
                         class="sapUiResponsivePadding--header sapUiResponsivePadding--content"

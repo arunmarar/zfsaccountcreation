@@ -90,31 +90,39 @@ sap.ui.define([
 			// 	this._bindView("/" + sObjectPath);
 			// }.bind(this));
 			var sfilter1 = new Filter({
-				path: "Step1",
+				path: "Level06",
 				operator: 'EQ',
-				value1: sObjectId 
+				value1: sObjectId
 
 			})
-			var sPath = '/Step2Set' ; 
+			var sPath = '/Level6Set' ; 
 			this.getView().getModel().read(sPath, {
 				filters:[sfilter1],
 				success: oData => {
-					
-					this.StepModel.setProperty('/Step2items', oData.results);
+					this.StepModel.setProperty('/SelectedLevel6', oData.results[0].Level06);
+					this.StepModel.setProperty('/Level6items', oData.results);
 					if ( oData.results.length === 0)
 					{
-						this.StepModel.setProperty('/Step2Visibility', false);
-						this.onChangeStep2();
+						this.StepModel.setProperty('/Level6Visibility', false);
+						// this.onChangeStep2();
 				    }
 					else{
-						this.StepModel.setProperty('/Step2Visibility', true);
+						this.StepModel.setProperty('/Level6Visibility', true);
 					}										
 				},
 				error: e => {  
 					this.showErrorMessage(this.parseError(e));
 				   
 				}
-			});
+			})
+			this._wizard = this.byId("ApprovalWizard");
+
+			var oFirstStep= this._wizard.getSteps()[0];
+            this._wizard.discardProgress(oFirstStep);
+            var oCurrStep = this.getView().byId('Level6WStep');
+            this._wizard.setCurrentStep(oCurrStep);
+
+
 		},
 		onChangeStep1: function (oEvent) {
 			this.StepModel.setProperty('/Step2items', {});
@@ -129,6 +137,7 @@ sap.ui.define([
 			this.StepModel.setProperty('/SelectedStep4', '');
 			var selectedKey = this.StepModel.getProperty('/SelectedStep1');
 			//var selectedKey = oEvent.getSource().getSelectedKey();
+			//this.byId("ApprovalWizard").goToStep('Level6WStep');
 			var sfilter1 = new Filter({
 				path: "Step1",
 				operator: 'EQ',
@@ -717,16 +726,49 @@ sap.ui.define([
 		},
 
 		completedHandler: function () {
-			this._oNavContainer.to(this.byId("wizardBranchingReviewPage"));
+			this._handleMessageBoxOpen("Are you sure you want to submit?", "confirm");
 		},
 
 		_handleMessageBoxOpen: function (sMessage, sMessageBoxType) {
+			var that = this;
 			MessageBox[sMessageBoxType](sMessage, {
 				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
 				onClose: function (oAction) {
 					if (oAction === MessageBox.Action.YES) {
-						this._wizard.discardProgress(this._wizard.getSteps()[0]);
-						this._navBackToList();
+						var oNewEntry = {
+							"Step1":this.StepModel.getProperty('/SelectedStep1'),
+            "Step2":this.StepModel.getProperty('/SelectedStep2'),
+            "Step3":this.StepModel.getProperty('/SelectedStep3'),
+            "Step4":this.StepModel.getProperty('/SelectedStep4'),
+            "Level01":this.StepModel.getProperty('/SelectedLevel1'),
+            "Level02":this.StepModel.getProperty('/SelectedLevel2'),
+            "Level03":this.StepModel.getProperty('/SelectedLevel3'),
+            "Level04":this.StepModel.getProperty('/SelectedLevel4'),
+            "Level05":this.StepModel.getProperty('/SelectedLevel5'),
+            "Level06":this.StepModel.getProperty('/SelectedLevel6'),
+            "Status":"Requested",
+            "Approver":"",
+            "Time":"",
+            "Comments":"",
+            "Txt20":"",
+            "Type":this.StepModel.getProperty('/SelectedStep4'),
+            "Requester":""
+						};
+
+						var oContext = this.getView().getModel().createEntry("/ApprovalListSet", {
+							properties: oNewEntry
+						  });
+						  this.getView().getModel().submitChanges({
+							success: function() {
+							  // Entry created successfully
+							  console.log("Entry created successfully");
+							  that.getRouter().navTo("RouteMainWorklist");
+							},
+							error: function(oError) {
+							  // Error handling
+							  console.error("Error creating entry: ", oError);
+							}
+						  });
 					}
 				}.bind(this)
 			});

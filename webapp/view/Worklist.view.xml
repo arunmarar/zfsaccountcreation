@@ -79,8 +79,10 @@
 						<ColumnListItem type="Navigation" press=".onPress">
 							<cells>
 								<ObjectIdentifier title="{Level06}"/>
-								<Text text="{Level01}"/>
-								<Text text="{Time}"/>
+								<Text text="{Step4}"/>
+								<!-- <Text text="{Time}"/> -->
+								<Text text="{path: 'Time', formatter: '.formatDate'}"/>
+								<Text text="{Requester}"/>
 																
 							</cells>
 						</ColumnListItem>

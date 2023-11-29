@@ -85,6 +85,18 @@ sap.ui.define([
 		 //oRouter.navTo("RouteMainWizard");
 
 		},
+		formatDate: function(sTimestamp) {
+			if (!sTimestamp) {
+			  return "";
+			}
+	  
+			var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
+			  pattern: "dd-MM-yyyy HH:mm:ss"
+			});
+	  
+			var oDate = oDateFormat.parse(sTimestamp);
+			return oDateFormat.format(oDate);
+		  },
 		
 		/**
 		 * Event handler when a table item gets pressed

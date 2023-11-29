@@ -32,7 +32,7 @@
         >
             <core:Item
                 key="{StepModel>Level04}"
-                text="{StepModel>Descrption}"
+                text="{StepModel>Level04} {StepModel>Descrption}"
             />
         </Select>
     </form:SimpleForm>
