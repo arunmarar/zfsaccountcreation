@@ -831,6 +831,7 @@ sap.ui.define(
       },
 
       _handleMessageBoxOpen: function (sMessage, sMessageBoxType) {
+        // this.getView().getModel().clearBatch();
         var that = this;
         MessageBox[sMessageBoxType](sMessage, {
           actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -856,24 +857,48 @@ sap.ui.define(
                 Requester: "",
               };
 
-              var oContext = this.getView()
-                .getModel()
-                .createEntry("/ApprovalListSet", {
-                  properties: oNewEntry,
-                });
               this.getView()
                 .getModel()
-                .submitChanges({
-                  success: function () {
-                    // Entry created successfully
-                    console.log("Entry created successfully");
+                .create("/ApprovalListSet", oNewEntry, {
+                  success: function (data) {
                     that.getRouter().navTo("RouteMainWorklist");
                   },
-                  error: function (oError) {
-                    // Error handling
-                    console.error("Error creating entry: ", oError);
+                  error: function (error) {
+                    // Handle error during creation here
+                    
+                    var aErrorMessages = that
+                      .getView()
+                      .getModel()
+                      .getMessagesByPath("/ApprovalListSet");
+                    MessageBox.error(
+                      "Custom error from backend: " + aErrorMessages[0].message
+                    );
                   },
                 });
+
+              //       var oContext = this.getView()
+              //         .getModel()
+              //          //.createEntry("/ApprovalListSet", {
+              //           create("/ApprovalListSet", oNewEntry, {
+              //         //  .createEntry("/ApprovalListSet('" + this.StepModel.getProperty("/SelectedLevel6").trim() + "')",{
+              //           properties: oNewEntry,
+              //         });
+              //       this.getView()
+              //         .getModel()
+              //         .submitChanges({
+              //           success: function () {
+              //             // Entry created successfully
+              //             console.log("Entry created successfully");
+              //             that.getRouter().navTo("RouteMainWorklist");
+              //           },
+              //           error: function (oError) {
+              //             // Error handling
+              //             console.error("Error creating entry: ", oError);
+              //             var aErrorMessages = that.getView().getModel().getMessagesByPath("/ApprovalListSet");
+              //             MessageBox.error("Custom error from backend: " + aErrorMessages[0].message);
+
+              //           },
+              //         });
             }
           }.bind(this),
         });
@@ -892,7 +917,8 @@ sap.ui.define(
           onClose: function (oAction) {
             if (oAction === MessageBox.Action.YES) {
               var oModel = that.getView().getModel();
-			  var sEntityId = this.StepModel.getProperty("/SelectedLevel6").trim();
+              var sEntityId =
+                this.StepModel.getProperty("/SelectedLevel6").trim();
               var oEntity = {
                 // Step1: this.StepModel.getProperty("/SelectedStep1"),
                 // Step2: this.StepModel.getProperty("/SelectedStep2"),
@@ -913,8 +939,8 @@ sap.ui.define(
                 // Requester: "",
               };
               // Submit the changes
-			  oModel.update("/ApprovalListSet('" + sEntityId + "')", oEntity, {
-				merge: false,
+              oModel.update("/ApprovalListSet('" + sEntityId + "')", oEntity, {
+                merge: false,
                 success: function () {
                   // Entry updated successfully
                   console.log("Entry updated successfully");
