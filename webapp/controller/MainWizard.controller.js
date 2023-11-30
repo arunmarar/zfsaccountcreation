@@ -148,6 +148,15 @@ sap.ui.define(
       },
       _onWRouteMatched: function (oEvent) {
         this._clearAllValues();
+        this._wizard = this.byId("ApprovalWizard");
+        var oFirstStep = this._wizard.getSteps();
+        this._wizard.discardProgress(oFirstStep[0]);
+        oFirstStep[0].setVisible(true);
+        oFirstStep[1].setVisible(true);
+        oFirstStep[2].setVisible(true);
+        oFirstStep[3].setVisible(true);
+        oFirstStep[4].setVisible(true);
+        oFirstStep[5].setVisible(true);
         this.StepModel.setProperty("/SubmitVisible", true);
         this.StepModel.setProperty("/ApprovalVisible", false);
       },
@@ -772,6 +781,7 @@ sap.ui.define(
         // this._handleMessageBoxOpen("Are you sure you want to cancel ?", "warning");
         //history.go(-1);
         this._clearAllValues();
+       
         this.onNavBack();
       },
 

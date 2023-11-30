@@ -57,15 +57,37 @@
         <f:header>
             <f:DynamicPageHeader pinnable="false">
                 <layout:HorizontalLayout allowWrapping="false">
-                    <layout:VerticalLayout class="sapUiMediumMarginEnd" />
-
+                    <layout:VerticalLayout  />
+                    <Table items="{StepModel>/Level6items}">
+                        <infoToolbar>
+                            <OverflowToolbar>
+                                <Label text="Below are alredy Existing Values" />
+                            </OverflowToolbar>
+                        </infoToolbar>
+                        <columns>
+                            <Column>
+                                <Text text="Existing Values" />
+                            </Column>
+                            <Column>
+                                <Text text="Description" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{StepModel>Level06}" />
+                                    <Text text="{StepModel>Description}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
                     <layout:VerticalLayout />
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
         </f:header>
 
         <f:content>
-            <Table items="{StepModel>/Level6items}">
+            <!-- <Table items="{StepModel>/Level6items}">
                 <infoToolbar>
                     <OverflowToolbar>
                         <Label text="Below are alredy Existing Values" />
@@ -87,7 +109,7 @@
                         </cells>
                     </ColumnListItem>
                 </items>
-            </Table>
+            </Table> -->
         </f:content>
     </f:DynamicPage>
 
