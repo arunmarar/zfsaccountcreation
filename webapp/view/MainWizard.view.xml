@@ -169,26 +169,26 @@
                     <OverflowToolbar>
                         <ToolbarSpacer />
                         <Button
-                            text="Cancel"
+                            text="{i18n>ButtonCancel}"
                             press="handleWizardCancel"
                         />
                         <Button
-                            text="Submit"
+                            text="{i18n>ButtonSubmit}"
                             press="completedHandler"
                             visible="{StepModel>/SubmitVisible}"
                         />
                         <Button
-                            text="Approve"
+                            text="{i18n>ButtonApprove}"
                             press="ApproveHandler"
                             visible="{StepModel>/ApprovalVisible}"
                         />
                         <Button
-                            text="Reject"
+                            text="{i18n>ButtonReject}"
                             press="RejectHandler"
                             visible="{StepModel>/ApprovalVisible}"
                         />
                         <Button
-                            text="Forward"
+                            text="{i18n>ButtonForward}"
                             press="ForwardHandler"
                             visible="{StepModel>/ApprovalVisible}"
                         />

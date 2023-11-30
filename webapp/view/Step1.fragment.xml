@@ -15,7 +15,7 @@
     >
         <Label
            
-            text="Step 1"
+            text="{i18n>Step1}" 
             required="true"
         />
         <Select
@@ -37,7 +37,7 @@
 
         <Label
            
-            text="Step 2"
+            text="{i18n>Step2}" 
             required="true"
         />
 
@@ -61,7 +61,7 @@
 
         <Label
             
-            text="Step 3"
+            text="{i18n>Step3}" 
             required="true"
         />
 
@@ -85,7 +85,7 @@
 
         <Label
            
-            text="Step 4"
+            text="{i18n>Step4}" 
             required="true"
         />
 

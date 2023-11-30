@@ -18,7 +18,7 @@
         />
 
         <Label
-            text="Level 1"
+            text="{i18n>Level1}" 
             required="true"
         />
         <Select
