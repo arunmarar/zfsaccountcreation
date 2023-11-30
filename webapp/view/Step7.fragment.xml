@@ -87,29 +87,7 @@
         </f:header>
 
         <f:content>
-            <!-- <Table items="{StepModel>/Level6items}">
-                <infoToolbar>
-                    <OverflowToolbar>
-                        <Label text="Below are alredy Existing Values" />
-                    </OverflowToolbar>
-                </infoToolbar>
-                <columns>
-                    <Column>
-                        <Text text="Existing Values" />
-                    </Column>
-                    <Column>
-                        <Text text="Description" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Text text="{StepModel>Level06}" />
-                            <Text text="{StepModel>Description}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table> -->
+           
         </f:content>
     </f:DynamicPage>
 

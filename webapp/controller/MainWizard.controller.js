@@ -85,6 +85,7 @@ sap.ui.define(
           SelectedLevel5: "",
           SelectedLevel5V: "",
           SelectedLevel6: "",
+          Guid: "",
           Level1Note: "",
           Level2Note: "",
           Level3Note: "",
@@ -139,6 +140,7 @@ sap.ui.define(
           SelectedLevel5: "",
           SelectedLevel5V: "",
           SelectedLevel6: "",
+          Guid: "",
           Level1Note: "",
           Level2Note: "",
           Level3Note: "",
@@ -174,14 +176,9 @@ sap.ui.define(
           .read(sPath, {
             filters: [sfilter1],
             success: (oData) => {
-              this.StepModel.setProperty(
-                "/SelectedLevel6",
-                oData.results[0].Level06
-              );
               this.StepModel.setProperty("/Level6items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level6Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level6Visibility", true);
               }
@@ -198,7 +195,11 @@ sap.ui.define(
             filters: [sfilter1],
             success: (oData) => {
               this.StepModel.setProperty(
-                "/SelectedLevel6V",
+                "/Guid",
+                oData.results[0].Guid
+              );
+              this.StepModel.setProperty(
+                "/SelectedLevel6",
                 oData.results[0].Level06
               );
               this.StepModel.setProperty(
@@ -676,6 +677,10 @@ sap.ui.define(
                 "/SelectedLevel6",
                 oData.results[0].Level06
               );
+              this.StepModel.setProperty(
+                "/Guid",
+                oData.results[0].Guid
+              );
               this.StepModel.setProperty("/Level6items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level6Visibility", false);
@@ -781,7 +786,7 @@ sap.ui.define(
         // this._handleMessageBoxOpen("Are you sure you want to cancel ?", "warning");
         //history.go(-1);
         this._clearAllValues();
-       
+
         this.onNavBack();
       },
 
@@ -875,7 +880,7 @@ sap.ui.define(
                   },
                   error: function (error) {
                     // Handle error during creation here
-                    
+
                     var aErrorMessages = that
                       .getView()
                       .getModel()
@@ -885,30 +890,6 @@ sap.ui.define(
                     );
                   },
                 });
-
-              //       var oContext = this.getView()
-              //         .getModel()
-              //          //.createEntry("/ApprovalListSet", {
-              //           create("/ApprovalListSet", oNewEntry, {
-              //         //  .createEntry("/ApprovalListSet('" + this.StepModel.getProperty("/SelectedLevel6").trim() + "')",{
-              //           properties: oNewEntry,
-              //         });
-              //       this.getView()
-              //         .getModel()
-              //         .submitChanges({
-              //           success: function () {
-              //             // Entry created successfully
-              //             console.log("Entry created successfully");
-              //             that.getRouter().navTo("RouteMainWorklist");
-              //           },
-              //           error: function (oError) {
-              //             // Error handling
-              //             console.error("Error creating entry: ", oError);
-              //             var aErrorMessages = that.getView().getModel().getMessagesByPath("/ApprovalListSet");
-              //             MessageBox.error("Custom error from backend: " + aErrorMessages[0].message);
-
-              //           },
-              //         });
             }
           }.bind(this),
         });
@@ -917,10 +898,33 @@ sap.ui.define(
       ApproveHandler: function (oEvent) {
         this._handleMessageBoxOpenA(
           "Are you sure you want to Approve?",
-          "confirm"
+          "confirm",
+          "Approved",
+          this.StepModel.getProperty("/SelectedStep4")
         );
       },
-      _handleMessageBoxOpenA: function (sMessage, sMessageBoxType) {
+      RejectHandler: function (oEvent) {
+        this._handleMessageBoxOpenA(
+          "Are you sure you want to Reject?",
+          "confirm",
+          "Rejected",
+          this.StepModel.getProperty("/SelectedStep4")
+        );
+      },
+      ForwardHandler: function (oEvent) {
+        this._handleMessageBoxOpenA(
+          "Are you sure you want to Forward?",
+          "confirm",
+          "Forwarded",
+          "Non Finanza"
+        );
+      },
+      _handleMessageBoxOpenA: function (
+        sMessage,
+        sMessageBoxType,
+        sStatus,
+        sType
+      ) {
         var that = this;
         MessageBox[sMessageBoxType](sMessage, {
           actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -928,25 +932,13 @@ sap.ui.define(
             if (oAction === MessageBox.Action.YES) {
               var oModel = that.getView().getModel();
               var sEntityId =
-                this.StepModel.getProperty("/SelectedLevel6").trim();
+              this.StepModel.getProperty("/Guid").trim();
               var oEntity = {
-                // Step1: this.StepModel.getProperty("/SelectedStep1"),
-                // Step2: this.StepModel.getProperty("/SelectedStep2"),
-                // Step3: this.StepModel.getProperty("/SelectedStep3"),
-                // Step4: this.StepModel.getProperty("/SelectedStep4"),
-                // Level01: this.StepModel.getProperty("/SelectedLevel1"),
-                // Level02: this.StepModel.getProperty("/SelectedLevel2"),
-                // Level03: this.StepModel.getProperty("/SelectedLevel3"),
-                // Level04: this.StepModel.getProperty("/SelectedLevel4"),
-                // Level05: this.StepModel.getProperty("/SelectedLevel5"),
+                Guid: this.StepModel.getProperty("/Guid"),
+                Step4: sType,
                 Level06: this.StepModel.getProperty("/SelectedLevel6"),
-                Status: "Approved",
-                // Approver: "",
-                // Time: "",
+                Status: sStatus,
                 Comments: "",
-                // Txt20: "",
-                // Type: this.StepModel.getProperty("/SelectedStep4"),
-                // Requester: "",
               };
               // Submit the changes
               oModel.update("/ApprovalListSet('" + sEntityId + "')", oEntity, {
