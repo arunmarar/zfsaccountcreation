@@ -1,9 +1,7 @@
 sap.ui.define(
   [
-    // 'sap/ui/core/mvc/Controller',
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    // "../model/formatter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
@@ -39,17 +37,8 @@ sap.ui.define(
   ) {
     "use strict";
 
-    var history = {
-      prevPaymentSelect: null,
-      prevDiffDeliverySelect: null,
-    };
-
     return BaseController.extend("zfsaccountcreation.controller.MainWizard", {
       onInit: function () {
-        this.serviceModel = new Servicemodel(this);
-        const ComboModel = this.serviceModel.getComboModel();
-        var a = 1;
-
         this.StepModel = new JSONModel({
           Step2items: {},
           Step3items: {},
@@ -194,10 +183,7 @@ sap.ui.define(
           .read(sPath, {
             filters: [sfilter1],
             success: (oData) => {
-              this.StepModel.setProperty(
-                "/Guid",
-                oData.results[0].Guid
-              );
+              this.StepModel.setProperty("/Guid", oData.results[0].Guid);
               this.StepModel.setProperty(
                 "/SelectedLevel6",
                 oData.results[0].Level06
@@ -273,8 +259,6 @@ sap.ui.define(
         this.StepModel.setProperty("/SelectedStep3", "");
         this.StepModel.setProperty("/SelectedStep4", "");
         var selectedKey = this.StepModel.getProperty("/SelectedStep1");
-        //var selectedKey = oEvent.getSource().getSelectedKey();
-        //this.byId("ApprovalWizard").goToStep('Level6WStep');
         var sfilter1 = new Filter({
           path: "Step1",
           operator: "EQ",
@@ -338,7 +322,6 @@ sap.ui.define(
           .read(sPath, {
             filters: [sfilter1, sfilter2, sfilter3],
             success: (oData) => {
-              //this.getView().getModel().setProperty('/TipoRic', oData.results);
               this.StepModel.setProperty("/Step3items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Step3Visibility", false);
@@ -355,12 +338,9 @@ sap.ui.define(
 
       onChangeStep3: function (oEvent) {
         this.StepModel.setProperty("/Step4items", {});
-
         this.StepModel.setProperty("/Step4Visibility", true);
-
         this.StepModel.setProperty("/SelectedStep4", "");
         var selectedKey = this.StepModel.getProperty("/SelectedStep3");
-        //var selectedKey = oEvent.getSource().getSelectedKey();
         var sfilter1 = new Filter({
           path: "Step3",
           operator: "EQ",
@@ -389,7 +369,6 @@ sap.ui.define(
           .read(sPath, {
             filters: [sfilter1, sfilter2, sfilter3, sfilter4],
             success: (oData) => {
-              //this.getView().getModel().setProperty('/TipoRic', oData.results);
               this.StepModel.setProperty("/Step4items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Step4Visibility", false);
@@ -420,8 +399,6 @@ sap.ui.define(
         this.StepModel.setProperty("/SelectedLevel3", "");
         this.StepModel.setProperty("/SelectedLevel4", "");
         this.StepModel.setProperty("/SelectedLevel5", "");
-        //var selectedKey = this.StepModel.getProperty('/SelectedStep4');
-        //var selectedKey = oEvent.getSource().getSelectedKey();
         var sfilter1 = new Filter({
           path: "Step1",
           operator: "EQ",
@@ -456,7 +433,6 @@ sap.ui.define(
               this.StepModel.setProperty("/Level1items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level1Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level1Visibility", true);
               }
@@ -500,7 +476,6 @@ sap.ui.define(
               this.StepModel.setProperty("/Level2items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level2Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level2Visibility", true);
               }
@@ -548,7 +523,6 @@ sap.ui.define(
               this.StepModel.setProperty("/Level3items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level3Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level3Visibility", true);
               }
@@ -569,10 +543,8 @@ sap.ui.define(
       onChangeLevel3: function (oEvent) {
         this.StepModel.setProperty("/Level4items", {});
         this.StepModel.setProperty("/Level5items", {});
-
         this.StepModel.setProperty("/Level4Visibility", true);
         this.StepModel.setProperty("/Level5Visibility", true);
-
         this.StepModel.setProperty("/SelectedLevel4", "");
         this.StepModel.setProperty("/SelectedLevel5", "");
 
@@ -595,7 +567,6 @@ sap.ui.define(
               this.StepModel.setProperty("/Level4items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level4Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level4Visibility", true);
               }
@@ -614,9 +585,7 @@ sap.ui.define(
 
       onChangeLevel4: function (oEvent) {
         this.StepModel.setProperty("/Level5items", {});
-
         this.StepModel.setProperty("/Level5Visibility", true);
-
         this.StepModel.setProperty("/SelectedLevel5", "");
 
         var sfilter1 = new Filter({
@@ -638,7 +607,6 @@ sap.ui.define(
               this.StepModel.setProperty("/Level5items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level5Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level5Visibility", true);
               }
@@ -677,14 +645,10 @@ sap.ui.define(
                 "/SelectedLevel6",
                 oData.results[0].Level06
               );
-              this.StepModel.setProperty(
-                "/Guid",
-                oData.results[0].Guid
-              );
+              this.StepModel.setProperty("/Guid", oData.results[0].Guid);
               this.StepModel.setProperty("/Level6items", oData.results);
               if (oData.results.length === 0) {
                 this.StepModel.setProperty("/Level6Visibility", false);
-                // this.onChangeStep2();
               } else {
                 this.StepModel.setProperty("/Level6Visibility", true);
               }
@@ -700,49 +664,6 @@ sap.ui.define(
         );
         this.StepModel.setProperty("/Level5Note", result.Note);
         this.StepModel.setProperty("/SelectedLevel5V", result.DESCRPTION);
-      },
-
-      goToPaymentStep: function () {
-        var selectedKey = this.model.getProperty("/selectedPayment");
-
-        switch (selectedKey) {
-          case "Credit Card":
-            this.byId("PaymentTypeStep").setNextStep(
-              this.getView().byId("CreditCardStep")
-            );
-            break;
-          case "Bank Transfer":
-            this.byId("PaymentTypeStep").setNextStep(
-              this.getView().byId("BankAccountStep")
-            );
-            break;
-          case "Cash on Delivery":
-          default:
-            this.byId("PaymentTypeStep").setNextStep(
-              this.getView().byId("CashOnDeliveryStep")
-            );
-            break;
-        }
-      },
-
-      setPaymentMethod: function () {
-        this.setDiscardableProperty({
-          message:
-            "Are you sure you want to change the payment type ? This will discard your progress.",
-          discardStep: this.byId("PaymentTypeStep"),
-          modelPath: "/selectedPayment",
-          historyPath: "prevPaymentSelect",
-        });
-      },
-
-      setDifferentDeliveryAddress: function () {
-        this.setDiscardableProperty({
-          message:
-            "Are you sure you want to change the delivery address ? This will discard your progress",
-          discardStep: this.byId("BillingStep"),
-          modelPath: "/differentDeliveryAddress",
-          historyPath: "prevDiffDeliverySelect",
-        });
       },
 
       setDiscardableProperty: function (params) {
@@ -770,23 +691,8 @@ sap.ui.define(
         }
       },
 
-      billingAddressComplete: function () {
-        if (this.model.getProperty("/differentDeliveryAddress")) {
-          this.byId("BillingStep").setNextStep(
-            this.getView().byId("DeliveryAddressStep")
-          );
-        } else {
-          this.byId("BillingStep").setNextStep(
-            this.getView().byId("DeliveryTypeStep")
-          );
-        }
-      },
-
       handleWizardCancel: function () {
-        // this._handleMessageBoxOpen("Are you sure you want to cancel ?", "warning");
-        //history.go(-1);
         this._clearAllValues();
-
         this.onNavBack();
       },
 
@@ -801,43 +707,6 @@ sap.ui.define(
         this._oNavContainer.backToPage(this._oWizardContentPage.getId());
       },
 
-      checkCreditCardStep: function () {
-        var cardName = this.model.getProperty("/CreditCard/Name") || "";
-        if (cardName.length < 3) {
-          this._wizard.invalidateStep(this.byId("CreditCardStep"));
-        } else {
-          this._wizard.validateStep(this.byId("CreditCardStep"));
-        }
-      },
-
-      checkCashOnDeliveryStep: function () {
-        var firstName =
-          this.model.getProperty("/CashOnDelivery/FirstName") || "";
-        if (firstName.length < 3) {
-          this._wizard.invalidateStep(this.byId("CashOnDeliveryStep"));
-        } else {
-          this._wizard.validateStep(this.byId("CashOnDeliveryStep"));
-        }
-      },
-
-      checkBillingStep: function () {
-        var address = this.model.getProperty("/BillingAddress/Address") || "";
-        var city = this.model.getProperty("/BillingAddress/City") || "";
-        var zipCode = this.model.getProperty("/BillingAddress/ZipCode") || "";
-        var country = this.model.getProperty("/BillingAddress/Country") || "";
-
-        if (
-          address.length < 3 ||
-          city.length < 3 ||
-          zipCode.length < 3 ||
-          country.length < 3
-        ) {
-          this._wizard.invalidateStep(this.byId("BillingStep"));
-        } else {
-          this._wizard.validateStep(this.byId("BillingStep"));
-        }
-      },
-
       completedHandler: function () {
         this._handleMessageBoxOpen(
           "Are you sure you want to submit?",
@@ -846,7 +715,6 @@ sap.ui.define(
       },
 
       _handleMessageBoxOpen: function (sMessage, sMessageBoxType) {
-        // this.getView().getModel().clearBatch();
         var that = this;
         MessageBox[sMessageBoxType](sMessage, {
           actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -931,8 +799,7 @@ sap.ui.define(
           onClose: function (oAction) {
             if (oAction === MessageBox.Action.YES) {
               var oModel = that.getView().getModel();
-              var sEntityId =
-              this.StepModel.getProperty("/Guid").trim();
+              var sEntityId = this.StepModel.getProperty("/Guid").trim();
               var oEntity = {
                 Guid: this.StepModel.getProperty("/Guid"),
                 Step4: sType,
@@ -956,40 +823,6 @@ sap.ui.define(
             }
           }.bind(this),
         });
-      },
-
-      _navBackToList: function () {
-        this._navBackToStep(this.byId("ContentsStep"));
-      },
-
-      _navBackToPaymentType: function () {
-        this._navBackToStep(this.byId("PaymentTypeStep"));
-      },
-
-      _navBackToCreditCard: function () {
-        this._navBackToStep(this.byId("CreditCardStep"));
-      },
-
-      _navBackToCashOnDelivery: function () {
-        this._navBackToStep(this.byId("CashOnDeliveryStep"));
-      },
-
-      _navBackToBillingAddress: function () {
-        this._navBackToStep(this.byId("BillingStep"));
-      },
-
-      _navBackToDeliveryType: function () {
-        this._navBackToStep(this.byId("DeliveryTypeStep"));
-      },
-
-      _navBackToStep: function (step) {
-        var fnAfterNavigate = function () {
-          this._wizard.goToStep(step);
-          this._oNavContainer.detachAfterNavigate(fnAfterNavigate);
-        }.bind(this);
-
-        this._oNavContainer.attachAfterNavigate(fnAfterNavigate);
-        this._oNavContainer.to(this._oWizardContentPage);
       },
     });
   }

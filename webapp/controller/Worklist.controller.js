@@ -47,12 +47,7 @@ sap.ui.define([
 			});
 			this.setModel(oViewModel, "worklistView");
 			// Create an object of filters
-			this._mFilters = {
-				"inStock": [new Filter("UnitsInStock", FilterOperator.GT, 10)],
-				"outOfStock": [new Filter("UnitsInStock", FilterOperator.LE, 0)],
-				"shortage": [new Filter("UnitsInStock", FilterOperator.BT, 1, 10)],
-				"all": []
-			};
+			
 
 			// Make sure, busy indication is showing immediately so there is no
 			// break after the busy indication for loading the view's meta data is

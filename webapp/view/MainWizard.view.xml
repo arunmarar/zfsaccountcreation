@@ -28,7 +28,7 @@
                         <WizardStep
                             id="WStep"
                             nextStep="Level1WStep"
-                            title="Step 1"
+                            title="{i18n>Step1Title}" 
                             
                         >
                             <ObjectHeader>
@@ -47,7 +47,7 @@
 
                         <WizardStep
                             id="Level1WStep"
-                            title="Step 2"
+                            title="{i18n>Step1Title}"
                             nextStep="Level2WStep"
                         >
                             <ObjectHeader>
@@ -67,7 +67,7 @@
 
                         <WizardStep
                             id="Level2WStep"
-                            title="Step 3"
+                            title="{i18n>Step1Title}"
                             nextStep="Level3WStep"
                         >
                             <ObjectHeader>
@@ -87,7 +87,7 @@
 
                         <WizardStep
                             id="Level3WStep"
-                            title="Step 4"
+                            title="{i18n>Step1Title}"
                             nextStep="Level4WStep"
                         >
                             <ObjectHeader>
@@ -107,7 +107,7 @@
 
                         <WizardStep
                             id="Level4WStep"
-                            title="Step 5"
+                            title="{i18n>Step1Title}"
                             nextStep="Level5WStep"
                         >
                             <ObjectHeader>
@@ -127,7 +127,7 @@
 
                         <WizardStep
                             id="Level5WStep"
-                            title="Step 6"
+                            title="{i18n>Step1Title}"
                             nextStep="Level6WStep"
                         >
                             <ObjectHeader>
@@ -147,7 +147,7 @@
 
                         <WizardStep
                             id="Level6WStep"
-                            title="Step 7"
+                            title="{i18n>Step1Title}"
                         >
                             <ObjectHeader>
                                 <attributes>
