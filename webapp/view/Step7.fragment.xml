@@ -48,10 +48,10 @@
                     />
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Label text="." />
+                    <Title text="."/>
                 </f:snappedTitleOnMobile>
                 <f:content>
-                    <Label text="." />
+                    <Title text="."/>
                 </f:content>
             </f:DynamicPageTitle>
         </f:title>
