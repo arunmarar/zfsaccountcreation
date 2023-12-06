@@ -9,7 +9,6 @@
     controllerName="zfsaccountcreation.controller.MainWizard"
 >
     <form:SimpleForm
-        id="form1"
         editable="true"
         layout="ResponsiveGridLayout"
     >
