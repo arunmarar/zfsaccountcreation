@@ -10,7 +10,15 @@
 >
 
 
-    <Breadcrumbs separatorStyle="Slash">
+    <Breadcrumbs >
+        <Link
+            press="onPress"
+            text="{StepModel>/SelectedStep1}>{StepModel>/SelectedStep2}>{StepModel>/SelectedStep3}
+            >{StepModel>/SelectedStep4}>{StepModel>/SelectedLevel1V}>{StepModel>/SelectedLevel2V}
+            >{StepModel>/SelectedLevel3V}>{StepModel>/SelectedLevel4V}>{StepModel>/SelectedLevel5V}
+            "
+          visible="{StepModel>/TextVisibility}"
+        />
         <Link
             press="onPress"
             text="{StepModel>/SelectedStep1}"
@@ -34,27 +42,27 @@
         <Link
             press="onPress"
             text="{StepModel>/SelectedLevel1V}"
-            visible="{StepModel>/Level1Visibility}"
+            visible="{StepModel>/LevelVisibility}"
         />
         <Link
             press="onPress"
             text="{StepModel>/SelectedLevel2V}"
-            visible="{StepModel>/Level2Visibility}"
+            visible="{StepModel>/LevelVisibility}"
         />
         <Link
             press="onPress"
             text="{StepModel>/SelectedLevel3V}"
-            visible="{StepModel>/Level3Visibility}"
+            visible="{StepModel>/LevelVisibility}"
         />
         <Link
             press="onPress"
             text="{StepModel>/SelectedLevel4V}"
-            visible="{StepModel>/Level4Visibility}"
+            visible="{StepModel>/LevelVisibility}"
         />
         <Link
             press="onPress"
             text="{StepModel>/SelectedLevel5V}"
-            visible="{StepModel>/Level5Visibility}"
+            visible="{StepModel>/LevelVisibility}"
         />
     </Breadcrumbs>
 </core:FragmentDefinition>

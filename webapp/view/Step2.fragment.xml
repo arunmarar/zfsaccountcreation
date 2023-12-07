@@ -18,10 +18,20 @@
         />
 
         <Label
-            text="{i18n>Level1}" 
+            text="{i18n>Level1}"
             required="true"
         />
+        <Input
+            value="{StepModel>/SelectedLevel1V}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+        text="{i18n>Level1}"
+        required="true"
+    />
         <Select
+            visible="{StepModel>/LevelVisibility}"
             change="onChangeLevel1"
             forceSelection="false"
             selectedKey="{StepModel>/SelectedLevel1}"

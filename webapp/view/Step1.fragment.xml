@@ -13,12 +13,20 @@
         layout="ResponsiveGridLayout"
     >
         <Label
-           
-            text="{i18n>Step1}" 
+            text="{i18n>Step1}"
+            required="true"
+        />
+        <Input
+            value="{StepModel>/SelectedStep1}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+            text="{i18n>Step1}"
             required="true"
         />
         <Select
-            
+            visible="{StepModel>/Step1Visibility}"
             forceSelection="false"
             change="onChangeStep1"
             selectedKey="{StepModel>/SelectedStep1}"
@@ -28,20 +36,25 @@
         }"
         >
             <core:Item
-               
                 key="{Step1}"
                 text="{Step1}"
             />
         </Select>
 
         <Label
-           
-            text="{i18n>Step2}" 
+            text="{i18n>Step2}"
             required="true"
         />
-
+        <Input
+            value="{StepModel>/SelectedStep2}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+            text="{i18n>Step2}"
+            required="true"
+        />
         <Select
-           
             visible="{StepModel>/Step2Visibility}"
             change="onChangeStep2"
             forceSelection="false"
@@ -52,20 +65,25 @@
         }"
         >
             <core:Item
-                
                 key="{StepModel>Step2}"
                 text="{StepModel>Step2}"
             />
         </Select>
 
         <Label
-            
-            text="{i18n>Step3}" 
+            text="{i18n>Step3}"
             required="true"
         />
-
+        <Input
+            value="{StepModel>/SelectedStep3}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+            text="{i18n>Step3}"
+            required="true"
+        />
         <Select
-           
             visible="{StepModel>/Step3Visibility}"
             change="onChangeStep3"
             forceSelection="false"
@@ -76,20 +94,25 @@
     }"
         >
             <core:Item
-               
                 key="{StepModel>Step3}"
                 text="{StepModel>Step3}"
             />
         </Select>
 
         <Label
-           
-            text="{i18n>Step4}" 
+            text="{i18n>Step4}"
             required="true"
         />
-
+        <Input
+            value="{StepModel>/SelectedStep4}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+            text="{i18n>Step4}"
+            required="true"
+        />
         <Select
-           
             visible="{StepModel>/Step4Visibility}"
             forceSelection="false"
             change="onChangeStep4"
@@ -100,7 +123,6 @@
 }"
         >
             <core:Item
-              
                 key="{StepModel>Step4}"
                 text="{StepModel>Step4}"
             />

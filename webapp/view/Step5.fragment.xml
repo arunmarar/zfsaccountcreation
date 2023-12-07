@@ -16,12 +16,22 @@
             fragmentName="zfsaccountcreation.view.StepB"
             type="XML"
         />
-       
+
         <Label
-            text="{i18n>Level4}" 
+            text="{i18n>Level4}"
+            required="true"
+        />
+        <Input
+            value="{StepModel>/SelectedLevel4V}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+            text="{i18n>Level4}"
             required="true"
         />
         <Select
+            visible="{StepModel>/LevelVisibility}"
             change="onChangeLevel4"
             forceSelection="false"
             selectedKey="{StepModel>/SelectedLevel4}"

@@ -140,14 +140,21 @@ sap.ui.define(
       _onWRouteMatched: function (oEvent) {
         this._clearAllValues();
         this._wizard = this.byId("ApprovalWizard");
-        var oFirstStep = this._wizard.getSteps();
-        this._wizard.discardProgress(oFirstStep[0]);
-        oFirstStep[0].setVisible(true);
-        oFirstStep[1].setVisible(true);
-        oFirstStep[2].setVisible(true);
-        oFirstStep[3].setVisible(true);
-        oFirstStep[4].setVisible(true);
-        oFirstStep[5].setVisible(true);
+         var oFirstStep = this._wizard.getSteps();
+         this._wizard.discardProgress(oFirstStep[0]);
+        // oFirstStep[0].setVisible(true);
+        // oFirstStep[1].setVisible(true);
+        // oFirstStep[2].setVisible(true);
+        // oFirstStep[3].setVisible(true);
+        // oFirstStep[4].setVisible(true);
+        // oFirstStep[5].setVisible(true);
+        this.StepModel.setProperty("/Step1Visibility", true);
+        this.StepModel.setProperty("/Step2Visibility", true);
+        this.StepModel.setProperty("/Step3Visibility", true);
+        this.StepModel.setProperty("/Step4Visibility", true);
+        this.StepModel.setProperty("/LevelVisibility", true);
+        this.StepModel.setProperty("/TextVisibility", false);
+       
         this.StepModel.setProperty("/SubmitVisible", true);
         this.StepModel.setProperty("/ApprovalVisible", false);
       },
@@ -235,14 +242,21 @@ sap.ui.define(
 
         this._wizard = this.byId("ApprovalWizard");
 
-        var oFirstStep = this._wizard.getSteps();
-        this._wizard.discardProgress(oFirstStep[0]);
-        oFirstStep[0].setVisible(false);
-        oFirstStep[1].setVisible(false);
-        oFirstStep[2].setVisible(false);
-        oFirstStep[3].setVisible(false);
-        oFirstStep[4].setVisible(false);
-        oFirstStep[5].setVisible(false);
+        // var oFirstStep = this._wizard.getSteps();
+        // this._wizard.discardProgress(oFirstStep[0]);
+        // oFirstStep[0].setVisible(false);
+        // oFirstStep[1].setVisible(false);
+        // oFirstStep[2].setVisible(false);
+        // oFirstStep[3].setVisible(false);
+        // oFirstStep[4].setVisible(false);
+        // oFirstStep[5].setVisible(false);
+        this.StepModel.setProperty("/Step1Visibility", false);
+        this.StepModel.setProperty("/Step2Visibility", false);
+        this.StepModel.setProperty("/Step3Visibility", false);
+        this.StepModel.setProperty("/Step4Visibility", false);
+        this.StepModel.setProperty("/LevelVisibility", false);
+        this.StepModel.setProperty("/TextVisibility", true);
+        
 
         var oCurrStep = this.getView().byId("Level6WStep");
         this._wizard.setCurrentStep(oCurrStep);
