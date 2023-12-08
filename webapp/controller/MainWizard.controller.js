@@ -39,6 +39,7 @@ sap.ui.define(
 
     return BaseController.extend("zfsaccountcreation.controller.MainWizard", {
       onInit: function () {
+        this._wizard = this.byId("ApprovalWizard");
         this.StepModel = new JSONModel({
           Step2items: {},
           Step3items: {},
@@ -140,27 +141,19 @@ sap.ui.define(
       _onWRouteMatched: function (oEvent) {
         this._clearAllValues();
         this._wizard = this.byId("ApprovalWizard");
-         var oFirstStep = this._wizard.getSteps();
-         this._wizard.discardProgress(oFirstStep[0]);
-        // oFirstStep[0].setVisible(true);
-        // oFirstStep[1].setVisible(true);
-        // oFirstStep[2].setVisible(true);
-        // oFirstStep[3].setVisible(true);
-        // oFirstStep[4].setVisible(true);
-        // oFirstStep[5].setVisible(true);
+        var oFirstStep = this._wizard.getSteps();
+        this._wizard.discardProgress(oFirstStep[0]);
         this.StepModel.setProperty("/Step1Visibility", true);
         this.StepModel.setProperty("/Step2Visibility", true);
         this.StepModel.setProperty("/Step3Visibility", true);
         this.StepModel.setProperty("/Step4Visibility", true);
         this.StepModel.setProperty("/LevelVisibility", true);
         this.StepModel.setProperty("/TextVisibility", false);
-       
         this.StepModel.setProperty("/SubmitVisible", true);
         this.StepModel.setProperty("/ApprovalVisible", false);
       },
       _onObjectMatched: function (oEvent) {
         var sObjectId = oEvent.getParameter("arguments").objectId;
-
         var sfilter1 = new Filter({
           path: "Level06",
           operator: "EQ",
@@ -241,34 +234,23 @@ sap.ui.define(
           });
 
         this._wizard = this.byId("ApprovalWizard");
-
-        // var oFirstStep = this._wizard.getSteps();
-        // this._wizard.discardProgress(oFirstStep[0]);
-        // oFirstStep[0].setVisible(false);
-        // oFirstStep[1].setVisible(false);
-        // oFirstStep[2].setVisible(false);
-        // oFirstStep[3].setVisible(false);
-        // oFirstStep[4].setVisible(false);
-        // oFirstStep[5].setVisible(false);
         this.StepModel.setProperty("/Step1Visibility", false);
         this.StepModel.setProperty("/Step2Visibility", false);
         this.StepModel.setProperty("/Step3Visibility", false);
         this.StepModel.setProperty("/Step4Visibility", false);
         this.StepModel.setProperty("/LevelVisibility", false);
         this.StepModel.setProperty("/TextVisibility", true);
-        
-
         var oCurrStep = this.getView().byId("Level6WStep");
         this._wizard.setCurrentStep(oCurrStep);
       },
       onChangeStep1: function (oEvent) {
+        this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step2items", {});
         this.StepModel.setProperty("/Step3items", {});
         this.StepModel.setProperty("/Step4items", {});
         this.StepModel.setProperty("/Step2Visibility", true);
         this.StepModel.setProperty("/Step3Visibility", true);
         this.StepModel.setProperty("/Step4Visibility", true);
-
         this.StepModel.setProperty("/SelectedStep2", "");
         this.StepModel.setProperty("/SelectedStep3", "");
         this.StepModel.setProperty("/SelectedStep4", "");
@@ -304,16 +286,14 @@ sap.ui.define(
       },
 
       onChangeStep2: function (oEvent) {
+        this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step3items", {});
         this.StepModel.setProperty("/Step4items", {});
-
         this.StepModel.setProperty("/Step3Visibility", true);
         this.StepModel.setProperty("/Step4Visibility", true);
-
         this.StepModel.setProperty("/SelectedStep3", "");
         this.StepModel.setProperty("/SelectedStep4", "");
         var selectedKey = this.StepModel.getProperty("/SelectedStep2");
-        //var selectedKey = oEvent.getSource().getSelectedKey();
         var sfilter1 = new Filter({
           path: "Step2",
           operator: "EQ",
@@ -351,6 +331,7 @@ sap.ui.define(
       },
 
       onChangeStep3: function (oEvent) {
+        this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step4items", {});
         this.StepModel.setProperty("/Step4Visibility", true);
         this.StepModel.setProperty("/SelectedStep4", "");
@@ -398,6 +379,7 @@ sap.ui.define(
       },
 
       onChangeStep4: function (oEvent) {
+        this._wizard.validateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Level1items", {});
         this.StepModel.setProperty("/Level2items", {});
         this.StepModel.setProperty("/Level3items", {});
@@ -457,7 +439,17 @@ sap.ui.define(
           });
       },
 
+      stepValidation: function(){
+        this._wizard.validateStep(this.byId("WStep"));
+       if ( this.StepModel.getProperty("/Step2Visibility") == true &&
+       ( this.StepModel.getProperty("/SelectedLevel2") == ""))
+       {
+        this._wizard.invalidateStep(this.byId("WStep"));
+       }
+      },
+
       onChangeLevel1: function (oEvent) {
+        this._wizard.validateStep(this.byId("Level1WStep"));
         this.StepModel.setProperty("/Level2items", {});
         this.StepModel.setProperty("/Level3items", {});
         this.StepModel.setProperty("/Level4items", {});
@@ -508,6 +500,7 @@ sap.ui.define(
       },
 
       onChangeLevel2: function (oEvent) {
+        this._wizard.validateStep(this.byId("Level2WStep"));
         this.StepModel.setProperty("/Level3items", {});
         this.StepModel.setProperty("/Level4items", {});
         this.StepModel.setProperty("/Level5items", {});
@@ -555,6 +548,7 @@ sap.ui.define(
       },
 
       onChangeLevel3: function (oEvent) {
+        this._wizard.validateStep(this.byId("Level3WStep"));
         this.StepModel.setProperty("/Level4items", {});
         this.StepModel.setProperty("/Level5items", {});
         this.StepModel.setProperty("/Level4Visibility", true);
@@ -598,6 +592,7 @@ sap.ui.define(
       },
 
       onChangeLevel4: function (oEvent) {
+        this._wizard.validateStep(this.byId("Level4WStep"));
         this.StepModel.setProperty("/Level5items", {});
         this.StepModel.setProperty("/Level5Visibility", true);
         this.StepModel.setProperty("/SelectedLevel5", "");
@@ -638,6 +633,7 @@ sap.ui.define(
       },
 
       onChangeLevel5: function (oEvent) {
+        this._wizard.validateStep(this.byId("Level5WStep"));
         var result = this.StepModel.getProperty("/Level5items").find(
           (item) =>
             item.Level05 === this.StepModel.getProperty("/SelectedLevel5")
@@ -768,7 +764,7 @@ sap.ui.define(
                       .getModel()
                       .getMessagesByPath("/ApprovalListSet");
                     MessageBox.error(
-                      "Custom error from backend: " + aErrorMessages[0].message
+                      "Error from backend: " + aErrorMessages[0].message
                     );
                   },
                 });

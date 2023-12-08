@@ -22,13 +22,14 @@
                         class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
                         finishButtonText=""
                         showNextButton="true"
-                        backgroundDesign="Transparent"
 
                     >
                         <WizardStep
                             id="WStep"
                             nextStep="Level1WStep"
                             title="{i18n>Step1Title}" 
+                            validated="false"
+                            activate="stepValidation"
                             
                         >
                             <ObjectHeader>
@@ -49,6 +50,7 @@
                             id="Level1WStep"
                             title="{i18n>Step1Title}"
                             nextStep="Level2WStep"
+                            validated="false"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -69,6 +71,7 @@
                             id="Level2WStep"
                             title="{i18n>Step1Title}"
                             nextStep="Level3WStep"
+                            validated="false"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -89,6 +92,7 @@
                             id="Level3WStep"
                             title="{i18n>Step1Title}"
                             nextStep="Level4WStep"
+                            validated="false"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -109,6 +113,7 @@
                             id="Level4WStep"
                             title="{i18n>Step1Title}"
                             nextStep="Level5WStep"
+                            validated="false"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -129,6 +134,7 @@
                             id="Level5WStep"
                             title="{i18n>Step1Title}"
                             nextStep="Level6WStep"
+                            validated="false"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -190,7 +196,7 @@
                         <Button
                             text="{i18n>ButtonForward}"
                             press="ForwardHandler"
-                            visible="{StepModel>/ApprovalVisible}"
+                            visible="false"
                         />
                     </OverflowToolbar>
                 </footer>
