@@ -330,7 +330,7 @@ sap.ui.define(
           });
       },
 
-      onChangeStep3: function (oEvent) {
+      onChangeStep3dummy: function (oEvent) {
         this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step4items", {});
         this.StepModel.setProperty("/Step4Visibility", true);
@@ -378,7 +378,7 @@ sap.ui.define(
           });
       },
 
-      onChangeStep4: function (oEvent) {
+      onChangeStep3: function (oEvent) {
         this._wizard.validateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Level1items", {});
         this.StepModel.setProperty("/Level2items", {});
@@ -410,11 +410,11 @@ sap.ui.define(
           operator: "EQ",
           value1: this.StepModel.getProperty("/SelectedStep3"),
         });
-        var sfilter4 = new Filter({
-          path: "Step4",
-          operator: "EQ",
-          value1: this.StepModel.getProperty("/SelectedStep4"),
-        });
+        // var sfilter4 = new Filter({
+        //   path: "Step4",
+        //   operator: "EQ",
+        //   value1: this.StepModel.getProperty("/SelectedStep4"),
+        // });
         var sfilter5 = new Filter({
           path: "Level01",
           operator: "NE",
@@ -424,7 +424,7 @@ sap.ui.define(
         this.getView()
           .getModel()
           .read(sPath, {
-            filters: [sfilter1, sfilter2, sfilter3, sfilter4],
+            filters: [sfilter1, sfilter2, sfilter3],
             success: (oData) => {
               this.StepModel.setProperty("/Level1items", oData.results);
               if (oData.results.length === 0) {
