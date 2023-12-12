@@ -16,6 +16,7 @@ sap.ui.define(
     "sap/m/library",
     "sap/m/Label",
     "sap/ui/core/Core",
+    "sap/ui/model/odata/v2/ODataModel",
   ],
   function (
     BaseController,
@@ -33,7 +34,8 @@ sap.ui.define(
     Button,
     mobileLibrary,
     Label,
-    Core
+    Core,
+    ODataModel
   ) {
     "use strict";
 
@@ -83,6 +85,27 @@ sap.ui.define(
           Level5Note: "",
         });
         this.getView().setModel(this.StepModel, "StepModel");
+
+        // var oModel = new ODataModel(
+        //   "/sap/opu/odata/sap/ZFS_ACCOUNT_CREATION_SRV/"
+        // );
+        // this.getView().setModel(oModel);
+        // var sPath = "/ButtonListSet";
+        // oModel.read(sPath, {
+        //   success: (oData) => {
+        //     this.StepModel.setProperty(
+        //       "/SubmitVisible",
+        //       oData.results[0].Create
+        //     );
+        //     this.StepModel.setProperty(
+        //       "/ApprovalVisible",
+        //       oData.results[0].Approve
+        //     );
+        //   },
+        //   error: (e) => {
+        //     this.showErrorMessage(this.parseError(e));
+        //   },
+        // });
 
         this.getRouter()
           .getRoute("object")
@@ -226,7 +249,23 @@ sap.ui.define(
               );
 
               this.StepModel.setProperty("/SubmitVisible", false);
-              this.StepModel.setProperty("/ApprovalVisible", true);
+
+              sPath = "/ButtonListSet";
+              this.getView()
+                .getModel()
+                .read(sPath, {
+                  success: (oData) => {
+                    this.StepModel.setProperty(
+                      "/ApprovalVisible",
+                      oData.results[0].Approve
+                    );
+                  },
+                  error: (e) => {
+                    this.showErrorMessage(this.parseError(e));
+                  },
+                });
+
+              // this.StepModel.setProperty("/ApprovalVisible", true);
             },
             error: (e) => {
               this.showErrorMessage(this.parseError(e));
@@ -439,13 +478,14 @@ sap.ui.define(
           });
       },
 
-      stepValidation: function(){
+      stepValidation: function () {
         this._wizard.validateStep(this.byId("WStep"));
-       if ( this.StepModel.getProperty("/Step2Visibility") == true &&
-       ( this.StepModel.getProperty("/SelectedLevel2") == ""))
-       {
-        this._wizard.invalidateStep(this.byId("WStep"));
-       }
+        if (
+          this.StepModel.getProperty("/Step2Visibility") == true &&
+          this.StepModel.getProperty("/SelectedLevel2") == ""
+        ) {
+          this._wizard.invalidateStep(this.byId("WStep"));
+        }
       },
 
       onChangeLevel1: function (oEvent) {
@@ -640,7 +680,7 @@ sap.ui.define(
         );
         this.StepModel.setProperty("/SelectedLev5l1V", result.Descrption);
         var sfilter1 = new Filter({
-          path: "Level06",
+          path: "Level05",
           operator: "EQ",
           value1: this.StepModel.getProperty("/SelectedLevel5"),
         });
