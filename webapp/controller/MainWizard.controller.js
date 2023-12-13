@@ -176,6 +176,7 @@ sap.ui.define(
         this.StepModel.setProperty("/ApprovalVisible", false);
       },
       _onObjectMatched: function (oEvent) {
+        this.getView().byId("ButtonSubmit").setVisible(false);
         var sObjectId = oEvent.getParameter("arguments").objectId;
         var sfilter1 = new Filter({
           path: "Level06",
@@ -247,9 +248,10 @@ sap.ui.define(
                 "/SelectedStep4",
                 oData.results[0].Step4
               );
-
+              this.getView().byId("ButtonSubmit").setVisible(false);
               this.StepModel.setProperty("/SubmitVisible", false);
-
+              if ( oData.results[0].Status === 'Richiesto')
+              {
               sPath = "/ButtonListSet";
               this.getView()
                 .getModel()
@@ -264,6 +266,7 @@ sap.ui.define(
                     this.showErrorMessage(this.parseError(e));
                   },
                 });
+              }
 
               // this.StepModel.setProperty("/ApprovalVisible", true);
             },
@@ -673,6 +676,10 @@ sap.ui.define(
       },
 
       onChangeLevel5: function (oEvent) {
+       if( this.StepModel.getProperty("/SubmitVisible") === true)
+       {
+        this.getView().byId("ButtonSubmit").setVisible(true);
+       }
         this._wizard.validateStep(this.byId("Level5WStep"));
         var result = this.StepModel.getProperty("/Level5items").find(
           (item) =>
@@ -748,7 +755,7 @@ sap.ui.define(
 
       handleWizardSubmit: function () {
         this._handleMessageBoxOpen(
-          "Are you sure you want to submit ?",
+          "Sei sicuro di voler inviare?",
           "confirm"
         );
       },
@@ -759,7 +766,7 @@ sap.ui.define(
 
       completedHandler: function () {
         this._handleMessageBoxOpen(
-          "Are you sure you want to submit?",
+          "Sei sicuro di voler inviare?",
           "confirm"
         );
       },
@@ -815,15 +822,15 @@ sap.ui.define(
 
       ApproveHandler: function (oEvent) {
         this._handleMessageBoxOpenA(
-          "Are you sure you want to Approve?",
+          "Sei sicuro di voler Approvare la Richiesta?",
           "confirm",
           "Approved",
           this.StepModel.getProperty("/SelectedStep4")
         );
       },
       RejectHandler: function (oEvent) {
-        this._handleMessageBoxOpenA(
-          "Are you sure you want to Reject?",
+        this._handleMessageBoxOpenR(
+          "Sei sicuro di voler Rifiutare la Richiesta?",
           "confirm",
           "Rejected",
           this.StepModel.getProperty("/SelectedStep4")
@@ -837,6 +844,80 @@ sap.ui.define(
           "Non Finanza"
         );
       },
+      _handleMessageBoxOpenR: function (
+        sMessage,
+        sMessageBoxType,
+        sStatus,
+        sType
+      ) {
+        var that = this;
+      
+        // Create a TextArea control for the comment
+        var oTextArea = new sap.m.TextArea({
+          value: "{/Comments}", // Bind the value to the Comments property in the model
+          required: true, // Set the textarea as mandatory
+          rows: 5, // Set the number of rows (adjust as needed)
+          width: "100%" // Set the width (adjust as needed)
+        });
+      
+        // Create a custom dialog
+        var oDialog = new sap.m.Dialog({
+          title: "Motivo Rifiuto",
+          content: [new sap.m.Label({ text: "Inserisci il Motivi Rifiuto:" }), oTextArea],
+          beginButton: new sap.m.Button({
+            text: "Conferma Rifiuto",
+            press: function () {
+              if (oTextArea.getValue()) {
+                // Your logic here to handle the comment and update the entity
+                var oModel = that.getView().getModel();
+                var sEntityId = that.StepModel.getProperty("/Guid").trim();
+                var oEntity = {
+                  Guid: that.StepModel.getProperty("/Guid"),
+                  Step4: sType,
+                  Level06: that.StepModel.getProperty("/SelectedLevel6"),
+                  Status: sStatus,
+                  Comments: oTextArea.getValue(),
+                };
+      
+                // Submit the changes
+                oModel.update("/ApprovalListSet('" + sEntityId + "')", oEntity, {
+                  merge: false,
+                  success: function () {
+                    // Entry updated successfully
+                    console.log("Entry updated successfully");
+                    that.getRouter().navTo("RouteMainWorklist");
+                    oDialog.close(); // Close the dialog after successfully updating
+                  },
+                  error: function (oError) {
+                    // Error handling
+                    console.error("Error updating entry: ", oError);
+                  },
+                });
+              } else {
+                // Show an error message if the textarea is empty
+                sap.m.MessageToast.show("Inserisci il Motivi Rifiuto.");
+              }
+            }
+          }),
+          endButton: new sap.m.Button({
+            text: "Annulla",
+            press: function () {
+              oDialog.close();
+            }
+          }),
+          afterClose: function () {
+            oDialog.destroy();
+          },
+          contentWidth: "500px", // Set your desired width
+          contentHeight: "150px" // Set your desired height
+        });
+      
+        // Open the custom dialog
+        oDialog.open();
+      },
+      
+      
+      
       _handleMessageBoxOpenA: function (
         sMessage,
         sMessageBoxType,

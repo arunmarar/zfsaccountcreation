@@ -17,7 +17,7 @@
                 <content>
                     <Wizard
                         id="ApprovalWizard"
-                        complete="completedHandler"
+                        complete="completedHandler1"
                         enableBranching="true"
                         class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
                         finishButtonText=""
@@ -32,13 +32,13 @@
                             activate="stepValidation"
                             
                         >
-                            <ObjectHeader>
+                            <!-- <ObjectHeader>
                                 <attributes>
                                     <ObjectAttribute
                                         text="Please Select Value from Below Dropdown"
                                     />
                                 </attributes>
-                            </ObjectHeader>
+                            </ObjectHeader> -->
 
                             <core:Fragment
                                 fragmentName="zfsaccountcreation.view.Step1"
@@ -52,13 +52,13 @@
                             nextStep="Level2WStep"
                             validated="false"
                         >
-                            <ObjectHeader>
+                            <!-- <ObjectHeader>
                                 <attributes>
                                     <ObjectAttribute
                                         text="Please Select Value from Below Dropdown"
                                     />
                                 </attributes>
-                            </ObjectHeader>
+                            </ObjectHeader> -->
                             <!-- items="{/Step1Set}" -->
 
                             <core:Fragment
@@ -154,6 +154,7 @@
                         <WizardStep
                             id="Level6WStep"
                             title="{i18n>Step1Title}"
+                            validated="false"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -179,9 +180,10 @@
                             press="handleWizardCancel"
                         />
                         <Button
+                        id='ButtonSubmit'
                             text="{i18n>ButtonSubmit}"
                             press="completedHandler"
-                            visible="{StepModel>/SubmitVisible}"
+                            visible="false"
                         />
                         <Button
                             text="{i18n>ButtonApprove}"

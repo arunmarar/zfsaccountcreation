@@ -61,10 +61,10 @@
                             </infoToolbar>
                             <columns>
                                 <Column>
-                                    <Text text="Existing Values" />
+                                    <Text text="Conto" />
                                 </Column>
                                 <Column>
-                                    <Text text="Description" />
+                                    <Text text="Descrizione Conto" />
                                 </Column>
                             </columns>
                             <items>

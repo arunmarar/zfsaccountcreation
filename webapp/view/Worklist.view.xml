@@ -46,7 +46,7 @@
                             <Toolbar>
                                 <Title
                                     id="tableHeader"
-                                    text="List To be approved"
+                                    text="Lista Richieste"
                                 />
                                 <ToolbarSpacer />
                                 <SearchField
