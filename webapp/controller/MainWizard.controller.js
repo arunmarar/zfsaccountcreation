@@ -178,10 +178,16 @@ sap.ui.define(
       _onObjectMatched: function (oEvent) {
         this.getView().byId("ButtonSubmit").setVisible(false);
         var sObjectId = oEvent.getParameter("arguments").objectId;
+        var sStatus = oEvent.getParameter("arguments").status;
         var sfilter1 = new Filter({
           path: "Level06",
           operator: "EQ",
           value1: sObjectId,
+        });
+        var sfilter2 = new Filter({
+          path: "Guid",
+          operator: "EQ",
+          value1: sStatus,
         });
         var sPath = "/Level6Set";
         this.getView()
@@ -205,7 +211,7 @@ sap.ui.define(
         this.getView()
           .getModel()
           .read(sPath, {
-            filters: [sfilter1],
+            filters: [sfilter2],
             success: (oData) => {
               this.StepModel.setProperty("/Guid", oData.results[0].Guid);
               this.StepModel.setProperty(
