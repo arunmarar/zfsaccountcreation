@@ -259,21 +259,28 @@ sap.ui.define(
               );
               this.getView().byId("ButtonSubmit").setVisible(false);
               this.StepModel.setProperty("/SubmitVisible", false);
-              if ( oData.results[0].Status === 'Richiesto')
+              if ( oData.results[0].Status === 'Richiesto' ||  oData.results[0].Status === 'Approvato')
               {
+                this.myStatus = oData.results[0].Status;
               sPath = "/ButtonListSet";
               this.getView()
                 .getModel()
                 .read(sPath, {
                   success: (oData) => {
+                    if ( this.myStatus  === 'Richiesto')
+                    {
                     this.StepModel.setProperty(
                       "/ApprovalVisible",
                       oData.results[0].Approve
                     );
+                    }
+                    if ( this.myStatus  === 'Approvato')
+                    {
                     this.StepModel.setProperty(
                       "/CancelVisible",
                       oData.results[0].Cancel
                     );
+                    }
                   },
                   error: (e) => {
                     this.showErrorMessage(this.parseError(e));
