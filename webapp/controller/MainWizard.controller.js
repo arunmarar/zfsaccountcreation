@@ -66,6 +66,7 @@ sap.ui.define(
           Level5Visibility: true,
           SubmitVisible: false,
           ApprovalVisible: false,
+          CancelVisible: false,
           SelectedLevel1: "",
           SelectedLevel1V: "",
           SelectedLevel2: "",
@@ -142,6 +143,7 @@ sap.ui.define(
           Level5Visibility: true,
           SubmitVisible: false,
           ApprovalVisible: false,
+          CancelVisible: false,
           SelectedLevel1: "",
           SelectedLevel1V: "",
           SelectedLevel2: "",
@@ -174,6 +176,7 @@ sap.ui.define(
         this.StepModel.setProperty("/TextVisibility", false);
         this.StepModel.setProperty("/SubmitVisible", true);
         this.StepModel.setProperty("/ApprovalVisible", false);
+        this.StepModel.setProperty("/CancelVisible", false);
       },
       _onObjectMatched: function (oEvent) {
         this.getView().byId("ButtonSubmit").setVisible(false);
@@ -266,6 +269,10 @@ sap.ui.define(
                     this.StepModel.setProperty(
                       "/ApprovalVisible",
                       oData.results[0].Approve
+                    );
+                    this.StepModel.setProperty(
+                      "/CancelVisible",
+                      oData.results[0].Cancel
                     );
                   },
                   error: (e) => {
@@ -754,7 +761,7 @@ sap.ui.define(
         }
       },
 
-      handleWizardCancel: function () {
+      handleWizardBack: function () {
         this._clearAllValues();
         this.onNavBack();
       },
@@ -842,12 +849,11 @@ sap.ui.define(
           this.StepModel.getProperty("/SelectedStep4")
         );
       },
-      ForwardHandler: function (oEvent) {
+      CancelHandler: function (oEvent) {
         this._handleMessageBoxOpenA(
-          "Are you sure you want to Forward?",
+          "Sei sicuro di voler annullare?",
           "confirm",
-          "Forwarded",
-          "Non Finanza"
+          "Cancelled"
         );
       },
       _handleMessageBoxOpenR: function (
@@ -879,7 +885,7 @@ sap.ui.define(
                 var sEntityId = that.StepModel.getProperty("/Guid").trim();
                 var oEntity = {
                   Guid: that.StepModel.getProperty("/Guid"),
-                  Step4: sType,
+                  // Step4: sType,
                   Level06: that.StepModel.getProperty("/SelectedLevel6"),
                   Status: sStatus,
                   Comments: oTextArea.getValue(),
@@ -939,7 +945,7 @@ sap.ui.define(
               var sEntityId = this.StepModel.getProperty("/Guid").trim();
               var oEntity = {
                 Guid: this.StepModel.getProperty("/Guid"),
-                Step4: sType,
+                // Step4: sType,
                 Level06: this.StepModel.getProperty("/SelectedLevel6"),
                 Status: sStatus,
                 Comments: "",

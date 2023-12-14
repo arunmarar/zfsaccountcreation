@@ -176,8 +176,8 @@
                     <OverflowToolbar>
                         <ToolbarSpacer />
                         <Button
-                            text="{i18n>ButtonCancel}"
-                            press="handleWizardCancel"
+                            text="{i18n>ButtonBack}"
+                            press="handleWizardBack"
                         />
                         <Button
                         id='ButtonSubmit'
@@ -196,9 +196,9 @@
                             visible="{StepModel>/ApprovalVisible}"
                         />
                         <Button
-                            text="{i18n>ButtonForward}"
-                            press="ForwardHandler"
-                            visible="false"
+                            text="{i18n>ButtonCancel}"
+                            press="CancelHandler"
+                            visible="{StepModel>/CancelVisible}"
                         />
                     </OverflowToolbar>
                 </footer>
