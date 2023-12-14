@@ -882,7 +882,7 @@ sap.ui.define(
         // Create a custom dialog
         var oDialog = new sap.m.Dialog({
           title: "Motivo Rifiuto",
-          content: [new sap.m.Label({ text: "Inserisci il Motivi Rifiuto:" }), oTextArea],
+          content: [new sap.m.Label({ text: "Inserisci il Motivo Rifiuto:" ,required: true}), oTextArea],
           beginButton: new sap.m.Button({
             text: "Conferma Rifiuto",
             press: function () {
@@ -914,7 +914,7 @@ sap.ui.define(
                 });
               } else {
                 // Show an error message if the textarea is empty
-                sap.m.MessageToast.show("Inserisci il Motivi Rifiuto.");
+                sap.m.MessageToast.show("Inserisci il Motivo Rifiuto.");
               }
             }
           }),
@@ -927,7 +927,7 @@ sap.ui.define(
           afterClose: function () {
             oDialog.destroy();
           },
-          contentWidth: "500px", // Set your desired width
+          contentWidth: "400px", // Set your desired width
           contentHeight: "150px" // Set your desired height
         });
       
