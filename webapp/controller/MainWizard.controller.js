@@ -179,6 +179,8 @@ sap.ui.define(
         this.StepModel.setProperty("/CancelVisible", false);
       },
       _onObjectMatched: function (oEvent) {
+        this.StepModel.setProperty("/ApprovalVisible", false);
+        this.StepModel.setProperty("/CancelVisible", false);
         this.getView().byId("ButtonSubmit").setVisible(false);
         var sObjectId = oEvent.getParameter("arguments").objectId;
         var sStatus = oEvent.getParameter("arguments").status;
@@ -858,7 +860,7 @@ sap.ui.define(
       },
       CancelHandler: function (oEvent) {
         this._handleMessageBoxOpenA(
-          "Sei sicuro di voler annullare?",
+          "Le richieste annullate non saranno tenute in considerazione per il calcolo del progressivo.Sei sicuro di voler annullare la richiesta?",
           "confirm",
           "Cancelled"
         );
@@ -935,7 +937,13 @@ sap.ui.define(
         oDialog.open();
       },
       
-      
+      formatBoldText: function (sValue) {
+        if (sValue === "Conto Proposto" || sValue === "Limite Massimo Raggiunto") {
+          return "font-weight: bold;";
+        } else {
+          return "font-weight: bold;";
+        }
+      },
       
       _handleMessageBoxOpenA: function (
         sMessage,

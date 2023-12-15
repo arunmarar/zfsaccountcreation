@@ -70,7 +70,8 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <Text text="{StepModel>Level06}" />
+                                        <!-- <Text text="{StepModel>Level06}" /> -->
+                                        <Text text="{path: 'StepModel>Level06'}" />  
                                         <Text text="{StepModel>Description}" />
                                     </cells>
                                 </ColumnListItem>

@@ -196,7 +196,7 @@ sap.ui.define(
         if (aTableSearchState.length !== 0) {
           oViewModel.setProperty(
             "/tableNoDataText",
-            this.getResourceBundle().getText("worklistNoDataWithSearchText")
+            this.getResourceBundle().getText("Nessun dato trovato")
           );
         }
       },
