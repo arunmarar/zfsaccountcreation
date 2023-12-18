@@ -37,26 +37,32 @@
                         />
                     </form:FormElement> -->
                 </form:formElements>
-            <!-- </form:FormContainer>
+                <!-- </form:FormContainer>
         </form:formContainers>
         <form:formContainers>
             <form:FormContainer> -->
-                <form:formElements> 
+                <form:formElements>
                     <form:FormElement>
                         <Table items="{StepModel>/Level6items}">
                             <infoToolbar>
                                 <OverflowToolbar>
                                     <Label
-                                    
                                         text="{i18n>Proposed}"
                                         required="true"
                                     />
                                     <Input
-                                    width="20%"
-                        
-                                    editable="{StepModel>/ApprovalVisible}"
-                                    value="{StepModel>/SelectedLevel6}"
-                                />
+                                        width="20%"
+                                        editable="{StepModel>/ApprovalVisible}"
+                                        value="{StepModel>/SelectedLevel6}"
+                                    />
+                                    <Label
+                                        text="{i18n>wlcolumn1d}"
+                                        required="true"
+                                    />
+                                    <Input
+                                        width="30%"
+                                        value="{StepModel>/Txt20}"
+                                    />
                                 </OverflowToolbar>
                             </infoToolbar>
                             <columns>
@@ -71,13 +77,14 @@
                                 <ColumnListItem>
                                     <cells>
                                         <!-- <Text text="{StepModel>Level06}" /> -->
-                                        <Text text="{path: 'StepModel>Level06'}" />  
+                                        <Text
+                                            text="{path: 'StepModel>Level06'}"
+                                        />
                                         <Text text="{StepModel>Description}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
-                        
                     </form:FormElement>
                 </form:formElements>
             </form:FormContainer>
