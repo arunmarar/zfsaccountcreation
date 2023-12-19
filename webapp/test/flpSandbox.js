@@ -39,7 +39,7 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
-									"title": "FS Account Creation",
+									"title": "Codifica Conti Co.Ge.",
 									"targetURL": "#zfsaccountcreation-display"
 								}
 							}]
@@ -54,8 +54,8 @@ sap.ui.define([
 							"zfsaccountcreation-display": {
 								"semanticObject": "zfsaccountcreation",
 								"action": "display",
-								"description": "FS Account Creation",
-								"title": "FS Account Creation",
+								"description": "Codifica Conti Co.Ge.",
+								"title": "Codifica Conti Co.Ge.",
 								"signature": {
 									"parameters": {}
 								},

@@ -60,6 +60,7 @@
                                         required="true"
                                     />
                                     <Input
+                                        id='txt20ip'
                                         width="30%"
                                         value="{StepModel>/Txt20}"
                                     />
@@ -76,9 +77,9 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <!-- <Text text="{StepModel>Level06}" /> -->
-                                        <Text
-                                            text="{path: 'StepModel>Level06'}"
+                                        <Label
+                                            text="{StepModel>Level06}"
+                                            class="{path: 'StepModel>Level06', formatter: '.formatFontClass'}"
                                         />
                                         <Text text="{StepModel>Description}" />
                                     </cells>

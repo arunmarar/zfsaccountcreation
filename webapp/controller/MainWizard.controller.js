@@ -178,6 +178,7 @@ sap.ui.define(
         this.StepModel.setProperty("/TextVisibility", false);
         this.StepModel.setProperty("/SubmitVisible", true);
         this.getView().byId("ButtonSubmit").setVisible(false);
+        this.getView().byId("txt20ip").setEditable(false);
         this.StepModel.setProperty("/ApprovalVisible", false);
         this.StepModel.setProperty("/CancelVisible", false);
       },
@@ -185,6 +186,7 @@ sap.ui.define(
         this.StepModel.setProperty("/ApprovalVisible", false);
         this.StepModel.setProperty("/CancelVisible", false);
         this.getView().byId("ButtonSubmit").setVisible(false);
+        this.getView().byId("txt20ip").setEditable(false);
         var sObjectId = oEvent.getParameter("arguments").objectId;
         var sStatus = oEvent.getParameter("arguments").status;
         var sfilter1 = new Filter({
@@ -280,12 +282,14 @@ sap.ui.define(
                           "/ApprovalVisible",
                           oData.results[0].Approve
                         );
+                        this.getView().byId("txt20ip").setEditable(true);
                       }
                       if (this.myStatus === "Approvato") {
                         this.StepModel.setProperty(
                           "/CancelVisible",
                           oData.results[0].Cancel
                         );
+
                       }
                     },
                     error: (e) => {
@@ -704,6 +708,7 @@ sap.ui.define(
       onChangeLevel5: function (oEvent) {
         if (this.StepModel.getProperty("/SubmitVisible") === true) {
           this.getView().byId("ButtonSubmit").setVisible(true);
+          this.getView().byId("txt20ip").setEditable(true);
         }
         this._wizard.validateStep(this.byId("Level5WStep"));
         var result = this.StepModel.getProperty("/Level5items").find(
@@ -957,16 +962,15 @@ sap.ui.define(
         oDialog.open();
       },
 
-      formatBoldText: function (sValue) {
-        if (
-          sValue === "Conto Proposto" ||
-          sValue === "Limite Massimo Raggiunto"
-        ) {
-          return "font-weight: bold;";
+      formatFontClass: function (sLevel06) {
+        var boldValues = ["Conti Esistenti", "Conti Approvati/Rifiutati"];
+        if (boldValues.indexOf(sLevel06) !== -1) {
+            return "boldText";
         } else {
-          return "font-weight: bold;";
+            return "";
         }
-      },
+    },
+    
 
       _handleMessageBoxOpenA: function (
         sMessage,

@@ -9,7 +9,7 @@
 |**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>https://vhfstmdsci.sap.gruppofs.it:8001/sap/opu/odata/sap/ZFS_ACCOUNT_CREATION_SRV
 |**Module Name**<br>zfsaccountcreation|
-|**Application Title**<br>FS Account Creation|
+|**Application Title**<br>Codifica Conti Co.Ge.|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.120.1|
@@ -19,7 +19,7 @@
 
 ## zfsaccountcreation
 
-FS Account Creation
+Codifica Conti Co.Ge.
 
 ### Starting the generated app
 
