@@ -853,7 +853,7 @@ sap.ui.define(
                       .getModel()
                       .getMessagesByPath("/ApprovalListSet");
                     MessageBox.error(
-                      "Error from backend: " + aErrorMessages[0].message
+                       aErrorMessages[0].message
                     );
                   },
                 });
@@ -1014,7 +1014,7 @@ sap.ui.define(
                   //   .getView()
                   //   .getModel()
                   //   .getMessagesByPath("/ApprovalListSet");
-                  MessageBox.error("Error: " + messageValue);
+                  MessageBox.error(messageValue);
                   console.error("Error updating entry: ", oError);
                 },
               });
