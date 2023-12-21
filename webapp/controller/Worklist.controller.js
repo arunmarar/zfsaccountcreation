@@ -104,19 +104,46 @@ sap.ui.define(
         // Navigate to the "MainWizard" route
         //oRouter.navTo("RouteMainWizard");
       },
-      formatDate: function (sTimestamp) {
-        if (!sTimestamp) {
-          return "";
-        }
+      // formatDate: function (sTimestamp) {
+      //   if (!sTimestamp) {
+      //     return "";
+      //   }
 
-        var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
-          pattern: "dd-MM-yyyy HH:mm:ss",
-        });
+      //   var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
+      //     pattern: "dd-MM-yyyy HH:mm:ss",
+      //   });
 
-        var oDate = oDateFormat.parse(sTimestamp);
-        return oDateFormat.format(oDate);
-      },
+      //   var oDate = oDateFormat.parse(sTimestamp);
+      //   return oDateFormat.format(oDate);
+      // },
 
+      formatDate: function (timestamp) {
+      var year = timestamp.substr(0, 4);
+      var month = timestamp.substr(4, 2);
+      var day = timestamp.substr(6, 2);
+      var hour = timestamp.substr(8, 2);
+      var minute = timestamp.substr(10, 2);
+      var second = timestamp.substr(12, 2);
+  
+      var cetDate = new Date(year, month - 1, day, hour, minute, second);
+      
+      var options = {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZone: "Europe/Berlin", // Set to CET time zone
+      };
+  
+      var sDate = cetDate.toLocaleString("en-US", options);
+      return sDate.replace(',', '');
+      
+  },
+
+      
       /**
        * Event handler when a table item gets pressed
        * @param {sap.ui.base.Event} oEvent the table selectionChange event
