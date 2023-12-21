@@ -272,10 +272,16 @@ sap.ui.define(
                 oData.results[0].Status === "Approvato"
               ) {
                 this.myStatus = oData.results[0].Status;
+                var sfilter = new Filter({
+                  path: "Type",
+                  operator: "EQ",
+                  value1: this.StepModel.getProperty("/SelectedStep4"),
+                });
                 sPath = "/ButtonListSet";
                 this.getView()
                   .getModel()
                   .read(sPath, {
+                    filters: [sfilter],
                     success: (oData) => {
                       if (this.myStatus === "Richiesto") {
                         this.StepModel.setProperty(
