@@ -61,7 +61,7 @@
                                     />
                                     <Input
                                         id='txt20ip'
-                                        width="30%"
+                                        width="40%"
                                         value="{StepModel>/Txt20}"
                                     />
                                 </OverflowToolbar>

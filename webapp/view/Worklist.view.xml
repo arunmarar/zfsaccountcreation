@@ -59,6 +59,9 @@
                         </headerToolbar>
 
                         <columns>
+                            <Column>
+                                <Text text="{i18n>wlcolumnguid}" />
+                            </Column>
                             <Column id="nameColumn">
                                 <Text
                                     id="nameColumnTitle"
@@ -90,6 +93,7 @@
                                 press=".onPress"
                             >
                                 <cells>
+                                    <Text text="{Guid}" />
                                     <ObjectIdentifier title="{Level06}" />
                                     <Text text="{Txt20}" />
                                     <Text text="{Step4}" />
