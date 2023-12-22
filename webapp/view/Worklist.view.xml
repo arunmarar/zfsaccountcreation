@@ -93,7 +93,7 @@
                                 press=".onPress"
                             >
                                 <cells>
-                                    <Text text="{Guid}" />
+                                    <Text text="{ID}" />
                                     <ObjectIdentifier title="{Level06}" />
                                     <Text text="{Txt20}" />
                                     <Text text="{Step4}" />
