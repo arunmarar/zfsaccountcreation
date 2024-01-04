@@ -1,6 +1,7 @@
 <mvc:View
     controllerName="zfsaccountcreation.controller.Worklist"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.f.semantic"
 >
@@ -18,7 +19,7 @@
                 <!-- Existing buttons or controls ... -->
                 <ToolbarSpacer />
                 <Button
-                    text="{i18n>wlbutton1}" 
+                    text="{i18n>wlbutton1}"
                     press="handleNewButtonPress"
                     visible="{StepModel>/SubmitVisible}"
                 />
@@ -49,6 +50,36 @@
                                     text="Lista Richieste"
                                 />
                                 <ToolbarSpacer />
+                                <Label text="Stato:" />
+                                <ComboBox
+                                    id="statusComboBox1"
+                                    selectionChange=".onStatusChange"
+                                    width="auto"
+                                >
+                                    <items>
+                                        <core:Item
+                                            key=""
+                                            text=""
+                                        />
+                                        <core:Item
+                                            key="APPROVED"
+                                            text="Approvato"
+                                        />
+                                        <core:Item
+                                            key="REJECTED"
+                                            text="Rifiutato"
+                                        />
+                                        <core:Item
+                                            key="REQUESTED"
+                                            text="Richiesto"
+                                        />
+                                        <core:Item
+                                            key="CANCELLED"
+                                            text="Annullato"
+                                        />
+                                    </items>
+                                </ComboBox>
+
                                 <SearchField
                                     id="searchField"
                                     tooltip="{i18n>worklistSearchTooltip}"
@@ -80,10 +111,10 @@
                             <Column>
                                 <Text text="{i18n>wlcolumn4}" />
                             </Column>
-							<Column>
+                            <Column>
                                 <Text text="{i18n>wlcolumn5}" />
                             </Column>
-							<Column>
+                            <Column>
                                 <Text text="{i18n>wlcolumn6}" />
                             </Column>
                         </columns>
@@ -101,8 +132,8 @@
                                         text="{path: 'Time', formatter: '.formatDate'}"
                                     />
                                     <Text text="{Requester}" />
-									<Text text="{Status}" />
-									<Text text="{Approver}" />
+                                    <Text text="{Status}" />
+                                    <Text text="{Approver}" />
                                 </cells>
                             </ColumnListItem>
                         </items>

@@ -183,6 +183,30 @@ sap.ui.define(
         }
       },
 
+
+      onStatusChange: function (oEvent) {
+        var sSelectedStatus = oEvent.getParameter("selectedItem").getKey();
+        this.getView().getModel("worklistView").setProperty("/selectedStatus", sSelectedStatus);
+
+        // Call a function to update the table based on the selected status
+        this.updateTableData();
+    },
+
+    updateTableData: function () {
+        var oTable = this.getView().byId("table");
+        var sSelectedStatus = this.getView().getModel("worklistView").getProperty("/selectedStatus");
+
+        // Create a filter for the selected status
+        var aFilters = [];
+        if (sSelectedStatus !== "All") {
+            aFilters.push(new Filter("Step4", FilterOperator.Contains, sSelectedStatus));
+        }
+
+        // Apply the filters to the binding of the table
+        oTable.getBinding("items").filter(aFilters);
+    },
+
+
       /**
        * Event handler for refresh event. Keeps filter, sort
        * and group settings and refreshes the list binding.
