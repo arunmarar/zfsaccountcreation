@@ -1,0 +1,92 @@
+<core:FragmentDefinition xmlns:vbm="sap.ui.vbm"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.f"
+    controllerName="zfsaccountcreation.controller.MainWizard"
+>
+    <form:Form>
+        <!-- <Page> -->
+        <form:layout>
+            <form:ResponsiveGridLayout />
+        </form:layout>
+        <form:formContainers>
+            <form:FormContainer>
+                <form:formElements>
+                    <!-- <Breadcrumbs> -->
+                    <form:FormElement>
+                        <core:Fragment
+                            fragmentName="zfsaccountcreation.view.StepB"
+                            type="XML"
+                        />
+                    </form:FormElement>
+                    <!-- </Breadcrumbs> -->
+                    <!-- <form:FormElement >
+                        <Label
+                        textAlign="Center"
+                            text="{i18n>Proposed}"
+                            required="true"
+                        />
+                        <Input
+                        
+                            editable="{StepModel>/ApprovalVisible}"
+                            value="{StepModel>/SelectedLevel6}"
+                        />
+                    </form:FormElement> -->
+                </form:formElements>
+                <!-- </form:FormContainer>
+        </form:formContainers>
+        <form:formContainers>
+            <form:FormContainer> -->
+                <form:formElements>
+                    <form:FormElement>
+                        <Table >
+                         <headerToolbar>
+                <OverflowToolbar>
+                    <Title text="Allegati Generali"/>
+                    <ToolbarSpacer/>
+                    <HBox >
+
+                        <Button text="Nuovo Allegato"
+                                press="onUploadFile"
+                                
+                                type="Accept"
+                                class="sapUiSmallMarginEnd"
+                                />
+                        <Button text="Elimina Allegato"
+                                press="onDeleteFile"
+                                
+                                type="Reject"/>
+                    </HBox>
+                </OverflowToolbar>
+            </headerToolbar>
+                            <columns>
+                                <Column>
+                                    <Text text="Nome File" />
+                                </Column>
+                                <Column>
+                                    <Text text="Estensione File" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                            text="Test Nome File"
+                                           
+                                        />
+                                        <Text text="Test Estensione" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </form:FormElement>
+                </form:formElements>
+            </form:FormContainer>
+        </form:formContainers>
+        <!-- </Page> -->
+    </form:Form>
+</core:FragmentDefinition>

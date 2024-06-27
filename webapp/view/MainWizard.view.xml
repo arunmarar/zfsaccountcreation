@@ -154,7 +154,8 @@
                         <WizardStep
                             id="Level6WStep"
                             title="{i18n>Step1Title}"
-                            validated="false"
+                            validated="true"
+                            nextStep="Level7WStep"
                         >
                             <ObjectHeader>
                                 <attributes>
@@ -169,7 +170,25 @@
                                 fragmentName="zfsaccountcreation.view.Step7"
                                 type="XML"
                             />
+                        
                         </WizardStep>
+
+                        <WizardStep
+                            id="Level7WStep"
+                            title="{i18n>Step8Title}"
+                            validated="false"
+                        >
+                            
+                            <core:Fragment
+                                fragmentName="zfsaccountcreation.view.Step8"
+                                type="XML"
+                            />
+                            <!-- items="{/Step1Set}" -->
+
+                          
+                        
+                        </WizardStep>
+
                     </Wizard>
                 </content>
                 <footer>
