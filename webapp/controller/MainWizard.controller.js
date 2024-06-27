@@ -1022,6 +1022,31 @@ sap.ui.define(
           }.bind(this),
         });
       },
+
+      onUploadFile:function(){
+			
+        // if (this._isUnsaved()) {
+
+        //     MessageToast.show("Salvare in bozza prima di accedere alla posizione");
+
+        // } else {
+
+            if (!this.sDialog)
+            this.sDialog = Fragment.load({
+                id: 'uploadFileDialog',
+                name: 'zfsaccountcreation.view.UploadFileDialog',
+                controller: this.myOwner
+            }).then(oDialog => {
+                this.getView().addDependent(oDialog);
+                return oDialog;
+            });
+            this.sDialog.then(function (oDialog) {
+                oDialog.open();
+            }.bind(this));
+        //}
+
+    },
+
     });
   }
 );
