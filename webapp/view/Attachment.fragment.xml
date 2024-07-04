@@ -1,0 +1,68 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.f"
+    controllerName="zfsaccountcreation.controller.MainWizard"
+>
+    <!-- File Uploader -->
+
+    <u:FileUploader
+        id="fileUploader"
+        useMultipart="false"
+        name="myFileUpload"
+        uploadUrl="/sap/opu/odata/sap/ZFS_ACCOUNT_CREATION_SRV/AttachmentSet"
+        width="400px"
+        tooltip="Upload your file to the local server"
+        uploadComplete="handleUploadComplete"
+    />
+    <Button
+        text="Upload File"
+        press="handleUploadPress"
+    />
+
+    <!-- Table to display uploaded files -->
+    <Table
+        id="filesTable"
+        mode="MultiSelect"
+        inset="true"
+        items="{
+        path: '/AttachmentSet',
+        parameters: {
+            $$ID: '22'
+        },
+        templateShareable: false
+    }"
+    >
+        <columns>
+            <Column>
+                <header>
+                    <Text text="File Name" />
+                </header>
+            </Column>
+            <Column>
+                <header>
+                    <Text text="ID" />
+                </header>
+            </Column>
+            <!-- Add more columns as needed -->
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Link
+                        text="{Description}"
+                        press="openPreview"
+                        class="sapUiTinyMarginBottom"
+                    />
+                    <Text text="{ID}" />
+                    <!-- Add more cells as needed -->
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

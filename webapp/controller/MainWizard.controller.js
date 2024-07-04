@@ -17,6 +17,7 @@ sap.ui.define(
     "sap/m/Label",
     "sap/ui/core/Core",
     "sap/ui/model/odata/v2/ODataModel",
+    "sap/m/PDFViewer",
   ],
   function (
     BaseController,
@@ -35,12 +36,20 @@ sap.ui.define(
     mobileLibrary,
     Label,
     Core,
-    ODataModel
+    ODataModel,
+    PDFViewer
   ) {
     "use strict";
 
+    var oModel1 = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZFS_ACCOUNT_CREATION_SRV/");
     return BaseController.extend("zfsaccountcreation.controller.MainWizard", {
       onInit: function () {
+
+        this._pdfViewer = new PDFViewer({
+          isTrustedSource : true
+        });
+        this.getView().addDependent(this._pdfViewer);
+  
         this._wizard = this.byId("ApprovalWizard");
         this.StepModel = new JSONModel({
           Step2items: {},
@@ -228,6 +237,15 @@ sap.ui.define(
                 "/SelectedLevel6",
                 oData.results[0].Level06
               );
+              var oTable = this.byId("filesTable");
+              var oBinding = oTable.getBinding("items");
+            oBinding.filter([
+                new Filter({
+                    path: 'ID',
+                    operator: FilterOperator.EQ,
+                    value1: oData.results[0].Level06
+                })
+            ]);
               this.StepModel.setProperty("/Txt20", oData.results[0].Txt20);
               this.StepModel.setProperty(
                 "/SelectedLevel5V",
@@ -1022,6 +1040,144 @@ sap.ui.define(
           }.bind(this),
         });
       },
+
+      handleUploadComplete: function() {
+        var oTable = this.byId("filesTable");
+        var oBinding = oTable.getBinding("items");
+    
+        if (oBinding) {
+            oBinding.refresh();
+        }
+
+    },
+
+    handleUploadPress: function() {
+      var that = this;
+      var oFileUploader = this.getView().byId("fileUploader");
+      
+      if (oFileUploader.getValue() === "") {
+          sap.m.MessageToast.show("Please Choose any File");
+          return;
+      }
+  
+      // Function to refresh CSRF token
+      var refreshCSRFToken = function() {
+          var oModel = this.getView().getModel(); // Assuming your model is bound to the view
+          oModel.refreshSecurityToken(function() {
+              // Success callback: Set new CSRF token to FileUploader header
+              oFileUploader.removeAllHeaderParameters(); // Clear existing headers
+              oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+                  name: "SLUG",
+                  value: oFileUploader.getValue()
+              }));
+              oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+                  name: "SLUG",
+                  value: that.StepModel.getProperty("/SelectedLevel6")
+              }));
+              oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+                  name: "x-csrf-token",
+                  value: oModel.getSecurityToken()
+              }));
+  
+              // Upload the file
+              oFileUploader.setSendXHR(true);
+              oFileUploader.upload();
+          }, function() {
+              // Error callback: Handle token refresh failure
+              sap.m.MessageToast.show("Failed to refresh CSRF token. Please try again.");
+          }, false); // Pass 'false' to avoid metadata refresh
+      }.bind(this); // Ensure 'this' refers to the controller context
+  
+      // Check if CSRF token needs refreshing
+      var csrfToken = oFileUploader.getHeaderParameters().find(function(param) {
+          return param.getName() === "x-csrf-token";
+      });
+  
+      if (!csrfToken) {
+          refreshCSRFToken();
+      } else {
+         // Remove existing SLUG parameter if present
+         var existingSlugParameter = oFileUploader.getHeaderParameters().find(function(param) {
+          return param.getName() === "SLUG";
+      });
+      if (existingSlugParameter) {
+          oFileUploader.removeHeaderParameter(existingSlugParameter);
+      }
+      var existingSlugParameter = oFileUploader.getHeaderParameters().find(function(param) {
+        return param.getName() === "SLUG";
+    });
+    if (existingSlugParameter) {
+        oFileUploader.removeHeaderParameter(existingSlugParameter);
+    }
+
+          // Upload the file directly if CSRF token is already set
+          oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+            name: "SLUG",
+            value: oFileUploader.getValue()
+        }));
+        oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+            name: "SLUG",
+            value: that.StepModel.getProperty("/SelectedLevel6")
+        }));
+          oFileUploader.setSendXHR(true);
+          oFileUploader.upload();
+      }
+  },
+  
+  fun: function(oEvent) {
+    var ctx = oEvent.getSource().getBindingContext("Data");
+    zname = ctx.getObject().Description;
+    mandt = ctx.getObject().ID;
+    var oModel = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZFS_ACCOUNT_CREATION_SRV/");
+    oModel.getData("/Data");
+    oModel.read("/AttachmentSet(ID='" + mandt + "',Description='" + zname + "')/$value", {
+
+        success: function(oData, response) {
+            var file = response.requestUri;
+            window.open(file);
+
+        },
+        error: function() {
+        }
+      });
+ 
+    },
+
+    onBeforeInitiatingItemUpload: function(oEvent) {
+			var oUploadSetTableInstance = this.getView().byId("UploadSetTable");
+			var oItem = oEvent.getParameter("item");
+
+		
+					oItem.addHeaderField(new sap.ui.core.Item (
+						{
+							key: "SLUG",
+							text: oItem._oFileObject.name
+						}
+					));
+
+          oItem.addHeaderField(new sap.ui.core.Item (
+						{
+							key: "x-csrf-token",
+							text: this.getView().getModel().getSecurityToken()
+						}
+					));
+			
+		},
+    
+    openPreview: function(oEvent) {
+			var clickedControl = oEvent.getSource();
+			// clickedControl.openPreview();
+     var objId = clickedControl.getBindingContext().getProperty("ID");
+     const path = "/sap/opu/odata/sap/ZFS_ACCOUNT_CREATION_SRV/AttachmentSet(ID='" + objId + "')/$value";
+
+
+         
+     this._pdfViewer.setSource(path);
+     this._pdfViewer.setTitle('File');
+     this._pdfViewer.open();
+    
+      // window.open(path);
+		},
 
       onUploadFile:function(){
 			

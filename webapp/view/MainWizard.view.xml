@@ -22,15 +22,13 @@
                         class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
                         finishButtonText=""
                         showNextButton="true"
-
                     >
                         <WizardStep
                             id="WStep"
                             nextStep="Level1WStep"
-                            title="{i18n>Step1Title}" 
+                            title="{i18n>Step1Title}"
                             validated="false"
                             activate="stepValidation"
-                            
                         >
                             <!-- <ObjectHeader>
                                 <attributes>
@@ -154,7 +152,7 @@
                         <WizardStep
                             id="Level6WStep"
                             title="{i18n>Step1Title}"
-                            validated="true"
+                            validated="false"
                             nextStep="Level7WStep"
                         >
                             <ObjectHeader>
@@ -166,11 +164,34 @@
                             </ObjectHeader>
                             <!-- items="{/Step1Set}" -->
 
-                            <core:Fragment
-                                fragmentName="zfsaccountcreation.view.Step7"
-                                type="XML"
-                            />
-                        
+                            <IconTabBar
+                                id="idIconTabBarMulti"
+                                expanded="{device>/isNoPhone}"
+                                class="sapUiResponsiveContentPadding"
+                            >
+                                <items>
+                                    <IconTabFilter
+                                        icon="sap-icon://hint"
+                                        key="info"
+                                    >
+                                        <core:Fragment
+                                            fragmentName="zfsaccountcreation.view.Step7"
+                                            type="XML"
+                                        />
+                                    </IconTabFilter>
+
+                                    <IconTabFilter
+                                    icon="sap-icon://attachment"
+                                        key="attachments"
+                                >
+                                    <core:Fragment
+                                        fragmentName="zfsaccountcreation.view.Attachment"
+                                        type="XML"
+                                    />
+                                </IconTabFilter>
+
+                                </items>
+                            </IconTabBar>
                         </WizardStep>
 
                         <WizardStep
@@ -178,15 +199,11 @@
                             title="{i18n>Step8Title}"
                             validated="false"
                         >
-                            
                             <core:Fragment
                                 fragmentName="zfsaccountcreation.view.Step8"
                                 type="XML"
                             />
                             <!-- items="{/Step1Set}" -->
-
-                          
-                        
                         </WizardStep>
 
                     </Wizard>
@@ -199,7 +216,7 @@
                             press="handleWizardBack"
                         />
                         <Button
-                        id='ButtonSubmit'
+                            id='ButtonSubmit'
                             text="{i18n>ButtonSubmit}"
                             press="completedHandler"
                             visible="false"
