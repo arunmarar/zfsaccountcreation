@@ -136,6 +136,7 @@ sap.ui.define(
           Step2Visibility: true,
           Step3Visibility: true,
           Step4Visibility: true,
+          SelectedCompany: "",
           SelectedStep1: "",
           SelectedStep2: "",
           SelectedStep3: "",
@@ -282,6 +283,10 @@ sap.ui.define(
               this.StepModel.setProperty(
                 "/SelectedStep4",
                 oData.results[0].Step4
+              );
+              this.StepModel.setProperty(
+                "/SelectedCompany",
+                oData.results[0].Company
               );
               this.getView().byId("ButtonSubmit").setVisible(false);
               this.StepModel.setProperty("/SubmitVisible", false);
