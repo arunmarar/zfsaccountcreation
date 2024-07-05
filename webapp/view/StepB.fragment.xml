@@ -13,11 +13,16 @@
     <Breadcrumbs >
         <Link
             press="onPress"
-            text="{StepModel>/SelectedStep1}>{StepModel>/SelectedStep2}>{StepModel>/SelectedStep3}
+            text="{StepModel>/SelectedCompany}>{StepModel>/SelectedStep1}>{StepModel>/SelectedStep2}>{StepModel>/SelectedStep3}
             >{StepModel>/SelectedStep4}>{StepModel>/SelectedLevel1V}>{StepModel>/SelectedLevel2V}
             >{StepModel>/SelectedLevel3V}>{StepModel>/SelectedLevel4V}>{StepModel>/SelectedLevel5V}
             "
           visible="{StepModel>/TextVisibility}"
+        />
+        <Link
+            press="onPress"
+            text="{StepModel>/SelectedCompany}"
+            visible="{StepModel>/Step1Visibility}"
         />
         <Link
             press="onPress"

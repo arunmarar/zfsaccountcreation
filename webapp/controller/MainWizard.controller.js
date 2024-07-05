@@ -838,6 +838,7 @@ sap.ui.define(
           onClose: function (oAction) {
             if (oAction === MessageBox.Action.YES) {
               var oNewEntry = {
+                Company: this.StepModel.getProperty("/SelectedCompany"),
                 Step1: this.StepModel.getProperty("/SelectedStep1"),
                 Step2: this.StepModel.getProperty("/SelectedStep2"),
                 Step3: this.StepModel.getProperty("/SelectedStep3"),
@@ -1178,6 +1179,37 @@ sap.ui.define(
     
       // window.open(path);
 		},
+
+    onDeleteSelectedFiles: function() {
+      var oTable = this.byId("filesTable");
+      var oModel = oTable.getModel();
+
+      var aSelectedItems = oTable.getSelectedItems();
+
+      aSelectedItems.forEach(function(oSelectedItem) {
+          var oBindingContext = oSelectedItem.getBindingContext();
+          var sItemId = oBindingContext.getProperty("ID");
+
+          // Construct the delete URL
+          var sDeleteUrl = "/AttachmentSet('" + sItemId + "')";
+
+          // Send DELETE request to OData service
+          oModel.remove(sDeleteUrl, {
+              success: function() {
+                  // Successfully deleted
+                  console.log("Item with ID " + sItemId + " deleted successfully.");
+              },
+              error: function(oError) {
+                  // Error occurred during deletion
+                  console.error("Error deleting item with ID " + sItemId + ": " + oError);
+              }
+          });
+      });
+
+      // Clear table selection after deletion
+      oTable.removeSelections();
+      this.handleUploadComplete();
+  },
 
       onUploadFile:function(){
 			

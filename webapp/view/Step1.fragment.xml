@@ -10,8 +10,39 @@
 >
     <form:SimpleForm
         editable="true"
-        layout="ResponsiveGridLayout"
+        layout="ResponsiveGridLayout"       
+
     >
+
+    <Label
+            text="{i18n>Company}"
+            required="true"
+        />
+        <Input
+            value="{StepModel>/SelectedCompany}"
+            editable="false"
+            visible="{StepModel>/TextVisibility}"
+        />
+        <Label
+            text="{i18n>Company}"
+            required="true"
+        />
+        <Select
+            visible="{StepModel>/Step1Visibility}"
+            forceSelection="false"
+            change=""
+            selectedKey="{StepModel>/SelectedCompany}"
+            items="{
+            path: '/CompanySet',
+            sorter: { path: 'BUKRS' }
+            
+        }" 
+        >
+            <core:Item
+                key="{BUKRS}"
+                text="{BUKRS} - {BUTXT}"
+            />
+        </Select>
         <Label
             text="{i18n>Step1}"
             required="true"

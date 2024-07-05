@@ -24,7 +24,12 @@
         text="Upload File"
         press="handleUploadPress"
     />
-
+    
+            <Button
+                text="Delete Selected"
+                press="onDeleteSelectedFiles"
+            />
+       
     <!-- Table to display uploaded files -->
     <Table
         id="filesTable"
@@ -50,6 +55,7 @@
                 </header>
             </Column>
             <!-- Add more columns as needed -->
+            
         </columns>
         <items>
             <ColumnListItem>
