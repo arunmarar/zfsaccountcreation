@@ -11,7 +11,7 @@
 >
     <!-- File Uploader -->
 
-    <u:FileUploader
+    <!-- <u:FileUploader
         id="fileUploader"
         useMultipart="false"
         name="myFileUpload"
@@ -23,12 +23,17 @@
     <Button
         text="Upload File"
         press="handleUploadPress"
-    />
+    /> -->
     
+    <Button
+    text="Upload Attachment"
+    press="onOpenFileUploadDialog"
+/>
             <Button
                 text="Delete Selected"
                 press="onDeleteSelectedFiles"
             />
+            
        
     <!-- Table to display uploaded files -->
     <Table

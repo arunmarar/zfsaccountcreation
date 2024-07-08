@@ -1054,12 +1054,21 @@ sap.ui.define(
         if (oBinding) {
             oBinding.refresh();
         }
+        if (this._oDialog) {
+          this._oDialog.close();
+      }
+    },
 
+    onUploadFileCancel: function() {
+      if (this._oDialog) {
+        this._oDialog.close();
+    }
     },
 
     handleUploadPress: function() {
       var that = this;
-      var oFileUploader = this.getView().byId("fileUploader");
+      var oFileUploader = sap.ui.getCore().byId("fileUploader");
+      // this.getView().byId("fileUploader");
       
       if (oFileUploader.getValue() === "") {
           sap.m.MessageToast.show("Please Choose any File");
@@ -1215,6 +1224,23 @@ sap.ui.define(
       oTable.removeSelections();
       this.handleUploadComplete();
   },
+
+  onOpenFileUploadDialog: function() {
+    var that = this;
+
+    if (!this._oDialog) {
+        Fragment.load({
+            name: "zfsaccountcreation.view.FileUploadDialog", // Replace with your fragment/view name
+            controller: that
+        }).then(function(oDialog) {
+            that._oDialog = oDialog;
+            that.getView().addDependent(that._oDialog);
+            that._oDialog.open();
+        });
+    } else {
+        this._oDialog.open();
+    }
+},
 
       onUploadFile:function(){
 			
