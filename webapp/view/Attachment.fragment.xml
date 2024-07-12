@@ -25,7 +25,7 @@
         press="handleUploadPress"
     /> -->
     
-    <Button
+    <!-- <Button
     text="Upload Attachment"
     press="onOpenFileUploadDialog"
 />
@@ -33,9 +33,12 @@
                 text="Delete Selected"
                 press="onDeleteSelectedFiles"
             />
-            
+             -->
        
     <!-- Table to display uploaded files -->
+
+   
+
     <Table
         id="filesTable"
         mode="MultiSelect"
@@ -48,6 +51,26 @@
         templateShareable: false
     }"
     >
+
+    <headerToolbar>
+        <OverflowToolbar>
+            <Title text="Allegati Generali"/>
+            <ToolbarSpacer/>
+            <HBox >
+
+                <Button text="Nuovo Allegato"
+                        press="onOpenFileUploadDialog"
+                        
+                        class="sapUiSmallMarginEnd"
+                        />
+                <Button text="Elimina Allegato"
+                        press="onDeleteSelectedFiles"
+                        
+                       />
+            </HBox>
+        </OverflowToolbar>
+    </headerToolbar>
+
         <columns>
             <Column>
                 <header>
