@@ -60,7 +60,7 @@
 
                 <Button text="Nuovo Allegato"
                         press="onOpenFileUploadDialog"
-                        
+                        visible="{StepModel>/SubmitVisible}"
                         class="sapUiSmallMarginEnd"
                         />
                 <Button text="Elimina Allegato"

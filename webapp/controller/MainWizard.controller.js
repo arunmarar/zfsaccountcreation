@@ -1050,7 +1050,14 @@ sap.ui.define(
       handleUploadComplete: function() {
         var oTable = this.byId("filesTable");
         var oBinding = oTable.getBinding("items");
-    
+        var oBinding = oTable.getBinding("items");
+        oBinding.filter([
+            new Filter({
+                path: 'ID',
+                operator: FilterOperator.EQ,
+                value1: this.StepModel.getProperty("/SelectedLevel6")
+            })
+        ]);
         if (oBinding) {
             oBinding.refresh();
         }
