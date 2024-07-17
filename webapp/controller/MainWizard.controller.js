@@ -867,7 +867,17 @@ sap.ui.define(
                 .getModel()
                 .create("/ApprovalListSet", oNewEntry, {
                   success: function (data) {
-                    that.getRouter().navTo("RouteMainWorklist");
+                    if (data.Comments !== '') {
+                      MessageBox.warning(data.Comments, {
+                        onClose: function (sAction) {
+                          if (sAction === MessageBox.Action.OK) {
+                            that.getRouter().navTo("RouteMainWorklist");
+                          }
+                        }
+                      });
+                    } else {
+                      that.getRouter().navTo("RouteMainWorklist");
+                    }
                   },
                   error: function (error) {
                     // Handle error during creation here
