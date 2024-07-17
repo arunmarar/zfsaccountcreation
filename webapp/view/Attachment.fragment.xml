@@ -64,6 +64,7 @@
                         class="sapUiSmallMarginEnd"
                         />
                 <Button text="Elimina Allegato"
+                 visible="{StepModel>/SubmitVisible}"
                         press="onDeleteSelectedFiles"
                         
                        />
