@@ -1069,7 +1069,19 @@ sap.ui.define(
         });
       },
 
-      handleUploadComplete: function() {
+      handleUploadComplete: function(oEvent) {
+        if (!oEvent)
+          {
+
+          } 
+          else{
+        var oParameters = oEvent.getParameters();
+        var sSapMessage = oParameters.headers['sap-message'];
+        if (sSapMessage) {
+          var sErrorMessage = this.parseSapMessage(sSapMessage);
+          MessageBox.error(sErrorMessage);
+      }
+
         var oTable = this.byId("filesTable");
         var oBinding = oTable.getBinding("items");
         var oBinding = oTable.getBinding("items");
@@ -1086,7 +1098,28 @@ sap.ui.define(
         if (this._oDialog) {
           this._oDialog.close();
       }
+    }
     },
+
+    parseSapMessage: function(sSapMessage) {
+      try {
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(sSapMessage, "application/xml");
+          
+          // Get the message element
+          var oMessageElement = xmlDoc.getElementsByTagName("message")[0];
+          
+          // Extract and return the message text
+          if (oMessageElement) {
+              return oMessageElement.textContent || "Unknown error occurred";
+          } else {
+              return "Unknown error occurred";
+          }
+      } catch (e) {
+          // Handle XML parsing errors
+          return "Error parsing XML: " + e.message;
+      }
+  },
 
     onUploadFileCancel: function() {
       if (this._oDialog) {
