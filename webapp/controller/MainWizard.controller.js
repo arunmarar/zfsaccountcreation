@@ -129,6 +129,7 @@ sap.ui.define(
         this.getRouter().navTo("RouteMainWorklist");
       },
       _clearAllValues: function () {
+        
         this.StepModel.setData({
           Step2items: {},
           Step3items: {},
@@ -345,6 +346,7 @@ sap.ui.define(
         this._wizard.setCurrentStep(oCurrStep);
       },
       onChangeStep1: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step2items", {});
         this.StepModel.setProperty("/Step3items", {});
@@ -387,6 +389,7 @@ sap.ui.define(
       },
 
       onChangeStep2: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step3items", {});
         this.StepModel.setProperty("/Step4items", {});
@@ -432,6 +435,7 @@ sap.ui.define(
       },
 
       onChangeStep3dummy: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.invalidateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Step4items", {});
         this.StepModel.setProperty("/Step4Visibility", true);
@@ -480,6 +484,7 @@ sap.ui.define(
       },
 
       onChangeStep3: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.validateStep(this.byId("WStep"));
         this.StepModel.setProperty("/Level1items", {});
         this.StepModel.setProperty("/Level2items", {});
@@ -551,6 +556,7 @@ sap.ui.define(
       },
 
       onChangeLevel1: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.validateStep(this.byId("Level1WStep"));
         this.StepModel.setProperty("/Level2items", {});
         this.StepModel.setProperty("/Level3items", {});
@@ -602,6 +608,7 @@ sap.ui.define(
       },
 
       onChangeLevel2: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.validateStep(this.byId("Level2WStep"));
         this.StepModel.setProperty("/Level3items", {});
         this.StepModel.setProperty("/Level4items", {});
@@ -650,6 +657,7 @@ sap.ui.define(
       },
 
       onChangeLevel3: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.validateStep(this.byId("Level3WStep"));
         this.StepModel.setProperty("/Level4items", {});
         this.StepModel.setProperty("/Level5items", {});
@@ -694,6 +702,7 @@ sap.ui.define(
       },
 
       onChangeLevel4: function (oEvent) {
+        this.onDeleteAllFiles();
         this._wizard.validateStep(this.byId("Level4WStep"));
         this.StepModel.setProperty("/Level5items", {});
         this.StepModel.setProperty("/Level5Visibility", true);
@@ -735,6 +744,7 @@ sap.ui.define(
       },
 
       onChangeLevel5: function (oEvent) {
+        this.onDeleteAllFiles();
         if (this.StepModel.getProperty("/SubmitVisible") === true) {
           this.getView().byId("ButtonSubmit").setVisible(true);
           this.getView().byId("txt20ip").setEditable(true);
@@ -1036,10 +1046,12 @@ sap.ui.define(
               // Submit the changes
               oModel.update("/ApprovalListSet('" + sEntityId + "')", oEntity, {
                 merge: false,
-                success: function () {
+                success: function (oMessage) {
                   // Entry updated successfully
+                 
                   console.log("Entry updated successfully");
                   that.getRouter().navTo("RouteMainWorklist");
+                  
                 },
                 error: function (oError) {
                   var data = JSON.parse(oError.responseText);
@@ -1049,7 +1061,7 @@ sap.ui.define(
                   //   .getModel()
                   //   .getMessagesByPath("/ApprovalListSet");
                   MessageBox.error(messageValue);
-                  console.error("Error updating entry: ", oError);
+                 
                 },
               });
             }
@@ -1110,10 +1122,11 @@ sap.ui.define(
                   name: "x-csrf-token",
                   value: oModel.getSecurityToken()
               }));
-  
+              
               // Upload the file
               oFileUploader.setSendXHR(true);
               oFileUploader.upload();
+              oFileUploader.setValue();
           }, function() {
               // Error callback: Handle token refresh failure
               sap.m.MessageToast.show("Failed to refresh CSRF token. Please try again.");
@@ -1153,6 +1166,7 @@ sap.ui.define(
         }));
           oFileUploader.setSendXHR(true);
           oFileUploader.upload();
+          oFileUploader.setValue();
       }
   },
   
@@ -1242,6 +1256,36 @@ sap.ui.define(
       this.handleUploadComplete();
   },
 
+  onDeleteAllFiles: function() {
+    var oTable = this.byId("filesTable");
+    var oModel = oTable.getModel();
+
+    var aSelectedItems = oTable.getItems();
+
+    aSelectedItems.forEach(function(oSelectedItem) {
+        var oBindingContext = oSelectedItem.getBindingContext();
+        var sItemId = oBindingContext.getProperty("ID");
+
+        // Construct the delete URL
+        var sDeleteUrl = "/AttachmentSet('" + sItemId + "')";
+
+        // Send DELETE request to OData service
+        oModel.remove(sDeleteUrl, {
+            success: function() {
+                // Successfully deleted
+                console.log("Item with ID " + sItemId + " deleted successfully.");
+            },
+            error: function(oError) {
+                // Error occurred during deletion
+                console.error("Error deleting item with ID " + sItemId + ": " + oError);
+            }
+        });
+    });
+
+    // Clear table selection after deletion
+    oTable.removeSelections();
+    this.handleUploadComplete();
+},
   onOpenFileUploadDialog: function() {
     var that = this;
 
