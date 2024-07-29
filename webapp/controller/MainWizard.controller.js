@@ -977,11 +977,22 @@ sap.ui.define(
                   oEntity,
                   {
                     merge: false,
-                    success: function () {
+                    success: function (oEvent) {
                       // Entry updated successfully
+                      if(!oEvent){}
+                      else{
+                        var oParameters = oEvent.getParameters();
+                        var sSapMessage = oParameters.headers['sap-message'];
+                        if (sSapMessage) {
+                          var sErrorMessage = this.parseSapMessage(sSapMessage);
+                          MessageBox.error(sErrorMessage);
+                      }
+                      else{
                       console.log("Entry updated successfully");
                       that.getRouter().navTo("RouteMainWorklist");
                       oDialog.close(); // Close the dialog after successfully updating
+                      }
+                    }
                     },
                     error: function (oError) {
                       // Error handling
