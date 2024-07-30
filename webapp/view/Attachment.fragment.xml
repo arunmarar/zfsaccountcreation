@@ -60,11 +60,11 @@
 
                 <Button text="Nuovo Allegato"
                         press="onOpenFileUploadDialog"
-                        visible="{StepModel>/SubmitVisible}"
+                      id="NewA"
                         class="sapUiSmallMarginEnd"
                         />
                 <Button text="Elimina Allegato"
-                 visible="{StepModel>/SubmitVisible}"
+                 id="DelA"
                         press="onDeleteSelectedFiles"
                         
                        />

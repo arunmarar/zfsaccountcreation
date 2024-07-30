@@ -88,6 +88,7 @@ sap.ui.define(
           SelectedLevel5V: "",
           SelectedLevel6: "",
           Txt20: "",
+          ConMon: "",
           Guid: "",
           Level1Note: "",
           Level2Note: "",
@@ -168,6 +169,7 @@ sap.ui.define(
           SelectedLevel5V: "",
           SelectedLevel6: "",
           Txt20: "",
+          ConMon: "",
           Guid: "",
           Level1Note: "",
           Level2Note: "",
@@ -190,6 +192,9 @@ sap.ui.define(
         this.StepModel.setProperty("/SubmitVisible", true);
         this.getView().byId("ButtonSubmit").setVisible(false);
         this.getView().byId("txt20ip").setEditable(false);
+        this.getView().byId("conmonip").setEditable(false);
+        this.getView().byId("NewA").setVisible(false);
+        this.getView().byId("DelA").setVisible(false);
         this.StepModel.setProperty("/ApprovalVisible", false);
         this.StepModel.setProperty("/CancelVisible", false);
       },
@@ -198,6 +203,9 @@ sap.ui.define(
         this.StepModel.setProperty("/CancelVisible", false);
         this.getView().byId("ButtonSubmit").setVisible(false);
         this.getView().byId("txt20ip").setEditable(false);
+        this.getView().byId("conmonip").setEditable(false);
+        this.getView().byId("NewA").setVisible(false);
+        this.getView().byId("DelA").setVisible(false);
         var sObjectId = oEvent.getParameter("arguments").objectId;
         var sStatus = oEvent.getParameter("arguments").status;
         var sfilter1 = new Filter({
@@ -249,6 +257,7 @@ sap.ui.define(
                 })
             ]);
               this.StepModel.setProperty("/Txt20", oData.results[0].Txt20);
+              this.StepModel.setProperty("/ConMon", oData.results[0].ConMon);
               this.StepModel.setProperty(
                 "/SelectedLevel5V",
                 oData.results[0].Level05
@@ -313,6 +322,9 @@ sap.ui.define(
                           oData.results[0].Approve
                         );
                         this.getView().byId("txt20ip").setEditable(true);
+                        this.getView().byId("conmonip").setEditable(true);
+                        this.getView().byId("NewA").setVisible(true);
+                        this.getView().byId("DelA").setVisible(true);
                       }
                       if (this.myStatus === "Approvato") {
                         this.StepModel.setProperty(
@@ -748,6 +760,9 @@ sap.ui.define(
         if (this.StepModel.getProperty("/SubmitVisible") === true) {
           this.getView().byId("ButtonSubmit").setVisible(true);
           this.getView().byId("txt20ip").setEditable(true);
+          this.getView().byId("conmonip").setEditable(true);
+          this.getView().byId("NewA").setVisible(true);
+          this.getView().byId("DelA").setVisible(true);
         }
         this._wizard.validateStep(this.byId("Level5WStep"));
         var result = this.StepModel.getProperty("/Level5items").find(
@@ -772,6 +787,7 @@ sap.ui.define(
                 oData.results[0].Level06
               );
               this.StepModel.setProperty("/Txt20", oData.results[0].Txt20);
+              this.StepModel.setProperty("/ConMon", oData.results[0].ConMon);
               this.StepModel.setProperty("/Guid", oData.results[0].Guid);
               this.StepModel.setProperty("/Level6items", oData.results);
               if (oData.results.length === 0) {
@@ -865,6 +881,7 @@ sap.ui.define(
                 Level05: this.StepModel.getProperty("/SelectedLevel5"),
                 Level06: this.StepModel.getProperty("/SelectedLevel6"),
                 Txt20: this.StepModel.getProperty("/Txt20"),
+                ConMon: this.StepModel.getProperty("/ConMon"),
                 Status: "Requested",
                 Approver: "",
                 Time: "",
@@ -967,6 +984,7 @@ sap.ui.define(
                   // Step4: sType,
                   Level06: that.StepModel.getProperty("/SelectedLevel6"),
                   Txt20: that.StepModel.getProperty("/Txt20"),
+                  ConMon: that.StepModel.getProperty("/ConMon"),
                   Status: sStatus,
                   Comments: oTextArea.getValue(),
                 };
@@ -1051,6 +1069,7 @@ sap.ui.define(
                 // Step4: sType,
                 Level06: this.StepModel.getProperty("/SelectedLevel6"),
                 Txt20: this.StepModel.getProperty("/Txt20"),
+                ConMon: this.StepModel.getProperty("/ConMon"),
                 Status: sStatus,
                 Comments: "",
               };
